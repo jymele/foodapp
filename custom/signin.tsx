@@ -11,7 +11,7 @@ export default function SignIn() {
       disabled={loading}
       onClick={() => {
         setLoading(true);
-        signIn("google", { callbackUrl: "/" });
+        signIn("google", { callbackUrl: "/dashboard" });
       }}
     >
       {loading ? "Loading..." : "Login with Google"}
