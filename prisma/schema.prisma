@@ -3,6 +3,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
 model Room {
     id String @id @default(cuid())
     name String
@@ -11,7 +16,7 @@ model Room {
 
 model UserToRoom {
     id String @id @default(cuid())
-    userId String
+    userEmail String
     roomId String
     room Room @relation(fields: [roomId], references: [id])
 }
