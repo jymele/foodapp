@@ -18,12 +18,15 @@ export default async function DashboardPage() {
     redirect("/newRoom");
   }
 
-  console.log("User's rooms:", rooms);
+  const room = await prisma.room.findUnique({
+    where: { id: rooms[0].roomId },
+  });
 
   return (
     <div className="mt-14 container mx-auto p-2">
       <Card>
         <CardContent>
+          <p>{room?.name}</p>
           <p>Hello {session.user?.name}</p>
           <p>{session.user?.email}</p>
         </CardContent>
