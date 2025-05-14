@@ -9,7 +9,7 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div className="mt-14 container mx-auto">
+    <div className="mt-14 container mx-auto p-2">
       <Card>
         <CardContent>Hello {session.user?.name}</CardContent>
       </Card>
