@@ -1,10 +1,3 @@
-import SignOut from "@/custom/signout";
-
 export default function DashboardPage() {
-  return (
-    <div>
-      Dashboard Page
-      <SignOut />
-    </div>
-  );
+  return <div className="mt-14 container mx-auto">Dashboard Page</div>;
 }
