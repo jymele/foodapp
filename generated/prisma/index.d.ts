@@ -23,6 +23,11 @@ export type Room = $Result.DefaultSelection<Prisma.$RoomPayload>
  * 
  */
 export type UserToRoom = $Result.DefaultSelection<Prisma.$UserToRoomPayload>
+/**
+ * Model Meal
+ * 
+ */
+export type Meal = $Result.DefaultSelection<Prisma.$MealPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -168,6 +173,16 @@ export class PrismaClient<
     * ```
     */
   get userToRoom(): Prisma.UserToRoomDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.meal`: Exposes CRUD operations for the **Meal** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Meals
+    * const meals = await prisma.meal.findMany()
+    * ```
+    */
+  get meal(): Prisma.MealDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -609,7 +624,8 @@ export namespace Prisma {
 
   export const ModelName: {
     Room: 'Room',
-    UserToRoom: 'UserToRoom'
+    UserToRoom: 'UserToRoom',
+    Meal: 'Meal'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -628,7 +644,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "room" | "userToRoom"
+      modelProps: "room" | "userToRoom" | "meal"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -780,6 +796,80 @@ export namespace Prisma {
           }
         }
       }
+      Meal: {
+        payload: Prisma.$MealPayload<ExtArgs>
+        fields: Prisma.MealFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MealFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MealPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MealFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MealPayload>
+          }
+          findFirst: {
+            args: Prisma.MealFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MealPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MealFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MealPayload>
+          }
+          findMany: {
+            args: Prisma.MealFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MealPayload>[]
+          }
+          create: {
+            args: Prisma.MealCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MealPayload>
+          }
+          createMany: {
+            args: Prisma.MealCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MealCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MealPayload>[]
+          }
+          delete: {
+            args: Prisma.MealDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MealPayload>
+          }
+          update: {
+            args: Prisma.MealUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MealPayload>
+          }
+          deleteMany: {
+            args: Prisma.MealDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MealUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MealUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MealPayload>[]
+          }
+          upsert: {
+            args: Prisma.MealUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MealPayload>
+          }
+          aggregate: {
+            args: Prisma.MealAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMeal>
+          }
+          groupBy: {
+            args: Prisma.MealGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MealGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MealCountArgs<ExtArgs>
+            result: $Utils.Optional<MealCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -866,6 +956,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     room?: RoomOmit
     userToRoom?: UserToRoomOmit
+    meal?: MealOmit
   }
 
   /* Types for Logging */
@@ -3054,6 +3145,1001 @@ export namespace Prisma {
 
 
   /**
+   * Model Meal
+   */
+
+  export type AggregateMeal = {
+    _count: MealCountAggregateOutputType | null
+    _min: MealMinAggregateOutputType | null
+    _max: MealMaxAggregateOutputType | null
+  }
+
+  export type MealMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    date: Date | null
+    roomId: string | null
+  }
+
+  export type MealMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    date: Date | null
+    roomId: string | null
+  }
+
+  export type MealCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    date: number
+    roomId: number
+    _all: number
+  }
+
+
+  export type MealMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    date?: true
+    roomId?: true
+  }
+
+  export type MealMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    date?: true
+    roomId?: true
+  }
+
+  export type MealCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    date?: true
+    roomId?: true
+    _all?: true
+  }
+
+  export type MealAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Meal to aggregate.
+     */
+    where?: MealWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Meals to fetch.
+     */
+    orderBy?: MealOrderByWithRelationInput | MealOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MealWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Meals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Meals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Meals
+    **/
+    _count?: true | MealCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MealMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MealMaxAggregateInputType
+  }
+
+  export type GetMealAggregateType<T extends MealAggregateArgs> = {
+        [P in keyof T & keyof AggregateMeal]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMeal[P]>
+      : GetScalarType<T[P], AggregateMeal[P]>
+  }
+
+
+
+
+  export type MealGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MealWhereInput
+    orderBy?: MealOrderByWithAggregationInput | MealOrderByWithAggregationInput[]
+    by: MealScalarFieldEnum[] | MealScalarFieldEnum
+    having?: MealScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MealCountAggregateInputType | true
+    _min?: MealMinAggregateInputType
+    _max?: MealMaxAggregateInputType
+  }
+
+  export type MealGroupByOutputType = {
+    id: string
+    name: string
+    description: string
+    date: Date
+    roomId: string
+    _count: MealCountAggregateOutputType | null
+    _min: MealMinAggregateOutputType | null
+    _max: MealMaxAggregateOutputType | null
+  }
+
+  type GetMealGroupByPayload<T extends MealGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MealGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MealGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MealGroupByOutputType[P]>
+            : GetScalarType<T[P], MealGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MealSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    date?: boolean
+    roomId?: boolean
+  }, ExtArgs["result"]["meal"]>
+
+  export type MealSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    date?: boolean
+    roomId?: boolean
+  }, ExtArgs["result"]["meal"]>
+
+  export type MealSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    date?: boolean
+    roomId?: boolean
+  }, ExtArgs["result"]["meal"]>
+
+  export type MealSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    date?: boolean
+    roomId?: boolean
+  }
+
+  export type MealOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "date" | "roomId", ExtArgs["result"]["meal"]>
+
+  export type $MealPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Meal"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string
+      date: Date
+      roomId: string
+    }, ExtArgs["result"]["meal"]>
+    composites: {}
+  }
+
+  type MealGetPayload<S extends boolean | null | undefined | MealDefaultArgs> = $Result.GetResult<Prisma.$MealPayload, S>
+
+  type MealCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MealFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MealCountAggregateInputType | true
+    }
+
+  export interface MealDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Meal'], meta: { name: 'Meal' } }
+    /**
+     * Find zero or one Meal that matches the filter.
+     * @param {MealFindUniqueArgs} args - Arguments to find a Meal
+     * @example
+     * // Get one Meal
+     * const meal = await prisma.meal.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MealFindUniqueArgs>(args: SelectSubset<T, MealFindUniqueArgs<ExtArgs>>): Prisma__MealClient<$Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Meal that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MealFindUniqueOrThrowArgs} args - Arguments to find a Meal
+     * @example
+     * // Get one Meal
+     * const meal = await prisma.meal.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MealFindUniqueOrThrowArgs>(args: SelectSubset<T, MealFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MealClient<$Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Meal that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MealFindFirstArgs} args - Arguments to find a Meal
+     * @example
+     * // Get one Meal
+     * const meal = await prisma.meal.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MealFindFirstArgs>(args?: SelectSubset<T, MealFindFirstArgs<ExtArgs>>): Prisma__MealClient<$Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Meal that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MealFindFirstOrThrowArgs} args - Arguments to find a Meal
+     * @example
+     * // Get one Meal
+     * const meal = await prisma.meal.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MealFindFirstOrThrowArgs>(args?: SelectSubset<T, MealFindFirstOrThrowArgs<ExtArgs>>): Prisma__MealClient<$Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Meals that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MealFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Meals
+     * const meals = await prisma.meal.findMany()
+     * 
+     * // Get first 10 Meals
+     * const meals = await prisma.meal.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const mealWithIdOnly = await prisma.meal.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MealFindManyArgs>(args?: SelectSubset<T, MealFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Meal.
+     * @param {MealCreateArgs} args - Arguments to create a Meal.
+     * @example
+     * // Create one Meal
+     * const Meal = await prisma.meal.create({
+     *   data: {
+     *     // ... data to create a Meal
+     *   }
+     * })
+     * 
+     */
+    create<T extends MealCreateArgs>(args: SelectSubset<T, MealCreateArgs<ExtArgs>>): Prisma__MealClient<$Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Meals.
+     * @param {MealCreateManyArgs} args - Arguments to create many Meals.
+     * @example
+     * // Create many Meals
+     * const meal = await prisma.meal.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MealCreateManyArgs>(args?: SelectSubset<T, MealCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Meals and returns the data saved in the database.
+     * @param {MealCreateManyAndReturnArgs} args - Arguments to create many Meals.
+     * @example
+     * // Create many Meals
+     * const meal = await prisma.meal.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Meals and only return the `id`
+     * const mealWithIdOnly = await prisma.meal.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MealCreateManyAndReturnArgs>(args?: SelectSubset<T, MealCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Meal.
+     * @param {MealDeleteArgs} args - Arguments to delete one Meal.
+     * @example
+     * // Delete one Meal
+     * const Meal = await prisma.meal.delete({
+     *   where: {
+     *     // ... filter to delete one Meal
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MealDeleteArgs>(args: SelectSubset<T, MealDeleteArgs<ExtArgs>>): Prisma__MealClient<$Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Meal.
+     * @param {MealUpdateArgs} args - Arguments to update one Meal.
+     * @example
+     * // Update one Meal
+     * const meal = await prisma.meal.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MealUpdateArgs>(args: SelectSubset<T, MealUpdateArgs<ExtArgs>>): Prisma__MealClient<$Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Meals.
+     * @param {MealDeleteManyArgs} args - Arguments to filter Meals to delete.
+     * @example
+     * // Delete a few Meals
+     * const { count } = await prisma.meal.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MealDeleteManyArgs>(args?: SelectSubset<T, MealDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Meals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MealUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Meals
+     * const meal = await prisma.meal.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MealUpdateManyArgs>(args: SelectSubset<T, MealUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Meals and returns the data updated in the database.
+     * @param {MealUpdateManyAndReturnArgs} args - Arguments to update many Meals.
+     * @example
+     * // Update many Meals
+     * const meal = await prisma.meal.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Meals and only return the `id`
+     * const mealWithIdOnly = await prisma.meal.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MealUpdateManyAndReturnArgs>(args: SelectSubset<T, MealUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Meal.
+     * @param {MealUpsertArgs} args - Arguments to update or create a Meal.
+     * @example
+     * // Update or create a Meal
+     * const meal = await prisma.meal.upsert({
+     *   create: {
+     *     // ... data to create a Meal
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Meal we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MealUpsertArgs>(args: SelectSubset<T, MealUpsertArgs<ExtArgs>>): Prisma__MealClient<$Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Meals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MealCountArgs} args - Arguments to filter Meals to count.
+     * @example
+     * // Count the number of Meals
+     * const count = await prisma.meal.count({
+     *   where: {
+     *     // ... the filter for the Meals we want to count
+     *   }
+     * })
+    **/
+    count<T extends MealCountArgs>(
+      args?: Subset<T, MealCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MealCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Meal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MealAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MealAggregateArgs>(args: Subset<T, MealAggregateArgs>): Prisma.PrismaPromise<GetMealAggregateType<T>>
+
+    /**
+     * Group by Meal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MealGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MealGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MealGroupByArgs['orderBy'] }
+        : { orderBy?: MealGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MealGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMealGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Meal model
+   */
+  readonly fields: MealFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Meal.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MealClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Meal model
+   */
+  interface MealFieldRefs {
+    readonly id: FieldRef<"Meal", 'String'>
+    readonly name: FieldRef<"Meal", 'String'>
+    readonly description: FieldRef<"Meal", 'String'>
+    readonly date: FieldRef<"Meal", 'DateTime'>
+    readonly roomId: FieldRef<"Meal", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Meal findUnique
+   */
+  export type MealFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meal
+     */
+    select?: MealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meal
+     */
+    omit?: MealOmit<ExtArgs> | null
+    /**
+     * Filter, which Meal to fetch.
+     */
+    where: MealWhereUniqueInput
+  }
+
+  /**
+   * Meal findUniqueOrThrow
+   */
+  export type MealFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meal
+     */
+    select?: MealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meal
+     */
+    omit?: MealOmit<ExtArgs> | null
+    /**
+     * Filter, which Meal to fetch.
+     */
+    where: MealWhereUniqueInput
+  }
+
+  /**
+   * Meal findFirst
+   */
+  export type MealFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meal
+     */
+    select?: MealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meal
+     */
+    omit?: MealOmit<ExtArgs> | null
+    /**
+     * Filter, which Meal to fetch.
+     */
+    where?: MealWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Meals to fetch.
+     */
+    orderBy?: MealOrderByWithRelationInput | MealOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Meals.
+     */
+    cursor?: MealWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Meals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Meals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Meals.
+     */
+    distinct?: MealScalarFieldEnum | MealScalarFieldEnum[]
+  }
+
+  /**
+   * Meal findFirstOrThrow
+   */
+  export type MealFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meal
+     */
+    select?: MealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meal
+     */
+    omit?: MealOmit<ExtArgs> | null
+    /**
+     * Filter, which Meal to fetch.
+     */
+    where?: MealWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Meals to fetch.
+     */
+    orderBy?: MealOrderByWithRelationInput | MealOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Meals.
+     */
+    cursor?: MealWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Meals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Meals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Meals.
+     */
+    distinct?: MealScalarFieldEnum | MealScalarFieldEnum[]
+  }
+
+  /**
+   * Meal findMany
+   */
+  export type MealFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meal
+     */
+    select?: MealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meal
+     */
+    omit?: MealOmit<ExtArgs> | null
+    /**
+     * Filter, which Meals to fetch.
+     */
+    where?: MealWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Meals to fetch.
+     */
+    orderBy?: MealOrderByWithRelationInput | MealOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Meals.
+     */
+    cursor?: MealWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Meals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Meals.
+     */
+    skip?: number
+    distinct?: MealScalarFieldEnum | MealScalarFieldEnum[]
+  }
+
+  /**
+   * Meal create
+   */
+  export type MealCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meal
+     */
+    select?: MealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meal
+     */
+    omit?: MealOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Meal.
+     */
+    data: XOR<MealCreateInput, MealUncheckedCreateInput>
+  }
+
+  /**
+   * Meal createMany
+   */
+  export type MealCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Meals.
+     */
+    data: MealCreateManyInput | MealCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Meal createManyAndReturn
+   */
+  export type MealCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meal
+     */
+    select?: MealSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meal
+     */
+    omit?: MealOmit<ExtArgs> | null
+    /**
+     * The data used to create many Meals.
+     */
+    data: MealCreateManyInput | MealCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Meal update
+   */
+  export type MealUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meal
+     */
+    select?: MealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meal
+     */
+    omit?: MealOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Meal.
+     */
+    data: XOR<MealUpdateInput, MealUncheckedUpdateInput>
+    /**
+     * Choose, which Meal to update.
+     */
+    where: MealWhereUniqueInput
+  }
+
+  /**
+   * Meal updateMany
+   */
+  export type MealUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Meals.
+     */
+    data: XOR<MealUpdateManyMutationInput, MealUncheckedUpdateManyInput>
+    /**
+     * Filter which Meals to update
+     */
+    where?: MealWhereInput
+    /**
+     * Limit how many Meals to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Meal updateManyAndReturn
+   */
+  export type MealUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meal
+     */
+    select?: MealSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meal
+     */
+    omit?: MealOmit<ExtArgs> | null
+    /**
+     * The data used to update Meals.
+     */
+    data: XOR<MealUpdateManyMutationInput, MealUncheckedUpdateManyInput>
+    /**
+     * Filter which Meals to update
+     */
+    where?: MealWhereInput
+    /**
+     * Limit how many Meals to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Meal upsert
+   */
+  export type MealUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meal
+     */
+    select?: MealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meal
+     */
+    omit?: MealOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Meal to update in case it exists.
+     */
+    where: MealWhereUniqueInput
+    /**
+     * In case the Meal found by the `where` argument doesn't exist, create a new Meal with this data.
+     */
+    create: XOR<MealCreateInput, MealUncheckedCreateInput>
+    /**
+     * In case the Meal was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MealUpdateInput, MealUncheckedUpdateInput>
+  }
+
+  /**
+   * Meal delete
+   */
+  export type MealDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meal
+     */
+    select?: MealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meal
+     */
+    omit?: MealOmit<ExtArgs> | null
+    /**
+     * Filter which Meal to delete.
+     */
+    where: MealWhereUniqueInput
+  }
+
+  /**
+   * Meal deleteMany
+   */
+  export type MealDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Meals to delete
+     */
+    where?: MealWhereInput
+    /**
+     * Limit how many Meals to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Meal without action
+   */
+  export type MealDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meal
+     */
+    select?: MealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meal
+     */
+    omit?: MealOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -3082,6 +4168,17 @@ export namespace Prisma {
   };
 
   export type UserToRoomScalarFieldEnum = (typeof UserToRoomScalarFieldEnum)[keyof typeof UserToRoomScalarFieldEnum]
+
+
+  export const MealScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    date: 'date',
+    roomId: 'roomId'
+  };
+
+  export type MealScalarFieldEnum = (typeof MealScalarFieldEnum)[keyof typeof MealScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3116,6 +4213,20 @@ export namespace Prisma {
    * Reference to a field of type 'String[]'
    */
   export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -3221,6 +4332,58 @@ export namespace Prisma {
     roomId?: StringWithAggregatesFilter<"UserToRoom"> | string
   }
 
+  export type MealWhereInput = {
+    AND?: MealWhereInput | MealWhereInput[]
+    OR?: MealWhereInput[]
+    NOT?: MealWhereInput | MealWhereInput[]
+    id?: StringFilter<"Meal"> | string
+    name?: StringFilter<"Meal"> | string
+    description?: StringFilter<"Meal"> | string
+    date?: DateTimeFilter<"Meal"> | Date | string
+    roomId?: StringFilter<"Meal"> | string
+  }
+
+  export type MealOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    date?: SortOrder
+    roomId?: SortOrder
+  }
+
+  export type MealWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MealWhereInput | MealWhereInput[]
+    OR?: MealWhereInput[]
+    NOT?: MealWhereInput | MealWhereInput[]
+    name?: StringFilter<"Meal"> | string
+    description?: StringFilter<"Meal"> | string
+    date?: DateTimeFilter<"Meal"> | Date | string
+    roomId?: StringFilter<"Meal"> | string
+  }, "id">
+
+  export type MealOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    date?: SortOrder
+    roomId?: SortOrder
+    _count?: MealCountOrderByAggregateInput
+    _max?: MealMaxOrderByAggregateInput
+    _min?: MealMinOrderByAggregateInput
+  }
+
+  export type MealScalarWhereWithAggregatesInput = {
+    AND?: MealScalarWhereWithAggregatesInput | MealScalarWhereWithAggregatesInput[]
+    OR?: MealScalarWhereWithAggregatesInput[]
+    NOT?: MealScalarWhereWithAggregatesInput | MealScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Meal"> | string
+    name?: StringWithAggregatesFilter<"Meal"> | string
+    description?: StringWithAggregatesFilter<"Meal"> | string
+    date?: DateTimeWithAggregatesFilter<"Meal"> | Date | string
+    roomId?: StringWithAggregatesFilter<"Meal"> | string
+  }
+
   export type RoomCreateInput = {
     id?: string
     name: string
@@ -3298,6 +4461,62 @@ export namespace Prisma {
   export type UserToRoomUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userEmail?: StringFieldUpdateOperationsInput | string
+    roomId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MealCreateInput = {
+    id?: string
+    name: string
+    description: string
+    date: Date | string
+    roomId: string
+  }
+
+  export type MealUncheckedCreateInput = {
+    id?: string
+    name: string
+    description: string
+    date: Date | string
+    roomId: string
+  }
+
+  export type MealUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    roomId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MealUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    roomId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MealCreateManyInput = {
+    id?: string
+    name: string
+    description: string
+    date: Date | string
+    roomId: string
+  }
+
+  export type MealUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    roomId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MealUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     roomId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -3382,6 +4601,55 @@ export namespace Prisma {
     roomId?: SortOrder
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type MealCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    date?: SortOrder
+    roomId?: SortOrder
+  }
+
+  export type MealMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    date?: SortOrder
+    roomId?: SortOrder
+  }
+
+  export type MealMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    date?: SortOrder
+    roomId?: SortOrder
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type UserToRoomCreateNestedManyWithoutRoomInput = {
     create?: XOR<UserToRoomCreateWithoutRoomInput, UserToRoomUncheckedCreateWithoutRoomInput> | UserToRoomCreateWithoutRoomInput[] | UserToRoomUncheckedCreateWithoutRoomInput[]
     connectOrCreate?: UserToRoomCreateOrConnectWithoutRoomInput | UserToRoomCreateOrConnectWithoutRoomInput[]
@@ -3442,6 +4710,10 @@ export namespace Prisma {
     update?: XOR<XOR<RoomUpdateToOneWithWhereWithoutUsersToRoomsInput, RoomUpdateWithoutUsersToRoomsInput>, RoomUncheckedUpdateWithoutUsersToRoomsInput>
   }
 
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -3482,6 +4754,31 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type UserToRoomCreateWithoutRoomInput = {

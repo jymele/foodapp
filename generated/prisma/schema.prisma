@@ -20,3 +20,11 @@ model UserToRoom {
   roomId    String
   room      Room   @relation(fields: [roomId], references: [id])
 }
+
+model Meal {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  date        DateTime
+  roomId      String
+}

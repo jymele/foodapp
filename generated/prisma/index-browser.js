@@ -131,6 +131,14 @@ exports.Prisma.UserToRoomScalarFieldEnum = {
   roomId: 'roomId'
 };
 
+exports.Prisma.MealScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  date: 'date',
+  roomId: 'roomId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -144,7 +152,8 @@ exports.Prisma.QueryMode = {
 
 exports.Prisma.ModelName = {
   Room: 'Room',
-  UserToRoom: 'UserToRoom'
+  UserToRoom: 'UserToRoom',
+  Meal: 'Meal'
 };
 
 /**
