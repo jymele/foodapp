@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { PrismaClient } from "@/generated/prisma";
 import Link from "next/link";
+import SubmitButton from "@/custom/SubmitButton";
 
 export default async function NewRoom() {
   const session = await auth();
@@ -30,16 +31,19 @@ export default async function NewRoom() {
   return (
     <div className="container mx-auto p-2 mt-14">
       <h1>Create a Room</h1>
-      <Form action={createRoom}>
+      <Form
+        action={createRoom}
+        className="transition duration-200 bg-white px-3.5 py-2.5 w-fit cursor-pointer rounded-md flex"
+      >
         <input type="text" name="roomname" placeholder="Room Name" />
         <input
           type="hidden"
           name="userEmail"
           value={session.user!.email as string}
+          aria-required
+          required
         />
-        <button type="submit" className="mt-2">
-          Create Room
-        </button>
+        <SubmitButton />
       </Form>
     </div>
   );
