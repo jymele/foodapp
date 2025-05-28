@@ -12,7 +12,7 @@ export default function SubmitButton({
   return (
     <button
       type="submit"
-      className="transition duration-150 hover:scale-110"
+      className="transition duration-150 cursor-pointer"
       disabled={pending}
     >
       {pending ? (

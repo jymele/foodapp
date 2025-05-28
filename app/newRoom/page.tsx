@@ -1,5 +1,5 @@
 import Form from "next/form";
-import { createRoom } from "@/app/actions/createroom";
+import { createRoom } from "./action";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { PrismaClient } from "@/generated/prisma";

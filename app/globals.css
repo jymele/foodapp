@@ -11,3 +11,7 @@ p {
 .btn {
   @apply transition duration-150 px-3.5 py-2.5 rounded-md shadow-sm cursor-pointer outline-2;
 }
+
+.input {
+  @apply px-3 py-2 bg-white shadow-sm rounded-md;
+}
