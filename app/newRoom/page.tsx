@@ -29,17 +29,18 @@ export default async function NewRoom() {
   }
 
   return (
-    <div className="container mx-auto p-2 mt-14">
-      <h1>Create a Room</h1>
+    <div className="container mx-auto h-dvh flex flex-col items-center justify-center p-2">
+      <h1 className="font-semibold mb-2 text-lg">Create a Room</h1>
       <Form
         action={createRoom}
-        className="transition duration-200 bg-white px-3.5 py-2.5 w-fit cursor-pointer rounded-md flex"
+        className="transition duration-200 bg-white px-3.5 py-2.5 w-fit rounded-md shadow-sm flex"
       >
         <input type="text" name="roomname" placeholder="Room Name" />
         <input
           type="hidden"
           name="userEmail"
           value={session.user!.email as string}
+          className=""
           aria-required
           required
         />
