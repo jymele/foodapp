@@ -1,22 +1,20 @@
 import Form from "next/form";
 import { createRoom } from "./action";
 import { auth } from "@/auth";
-import { redirect } from "next/navigation";
 import { PrismaClient } from "@/generated/prisma";
 import Link from "next/link";
 import SubmitButton from "@/custom/SubmitButton";
 import { Plus } from "lucide-react";
+import checkIfLoggedIn from "@/utils/checkIfLoggedIn";
 
 export default async function NewRoom() {
   const session = await auth();
   const prisma = new PrismaClient();
 
-  if (!session) {
-    redirect("/");
-  }
+  checkIfLoggedIn();
 
   const rooms = await prisma.userToRoom.findMany({
-    where: { userEmail: session.user!.email as string },
+    where: { userEmail: session!.user!.email as string },
   });
 
   if (rooms.length > 0) {
@@ -40,7 +38,7 @@ export default async function NewRoom() {
         <input
           type="hidden"
           name="userEmail"
-          value={session.user!.email as string}
+          value={session!.user!.email as string}
           className=""
           aria-required
           required
