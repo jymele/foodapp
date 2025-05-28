@@ -1,6 +1,5 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import { Card, CardContent } from "@/components/ui/card";
 import { PrismaClient } from "@/generated/prisma";
 
 export default async function DashboardPage() {
@@ -24,13 +23,11 @@ export default async function DashboardPage() {
 
   return (
     <div className="mt-14 container mx-auto p-2">
-      <Card>
-        <CardContent>
-          <p>{room?.name}</p>
-          <p>Hello {session.user?.name}</p>
-          <p>{session.user?.email}</p>
-        </CardContent>
-      </Card>
+      <div>
+        <p>{room?.name}</p>
+        <p>Hello {session.user?.name}</p>
+        <p>{session.user?.email}</p>
+      </div>
     </div>
   );
 }
