@@ -1,16 +1,9 @@
-import { auth } from "@/auth";
-import { redirect } from "next/navigation";
+import SignIn from "@/custom/signin";
 
 export default async function Home() {
-  const session = await auth();
-
-  if (session) {
-    redirect("/dashboard");
-  }
-
-  if (!session) {
-    redirect("/login");
-  }
-
-  return <div>Blank Page</div>;
+  return (
+    <div className="flex items-center justify-center h-screen">
+      <SignIn />
+    </div>
+  );
 }

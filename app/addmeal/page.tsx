@@ -2,8 +2,16 @@ import Form from "next/form";
 import submitMeal from "./action";
 import SubmitButton from "@/custom/SubmitButton";
 import { SendHorizontal } from "lucide-react";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
-export default function AddMealPage() {
+export default async function AddMealPage() {
+  const session = await auth();
+
+  if (!session) {
+    redirect("/");
+  }
+
   return (
     <div className="mt-14 container mx-auto p-2">
       <Form action={submitMeal} className="flex flex-col gap-4 p-4">

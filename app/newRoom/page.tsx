@@ -12,7 +12,7 @@ export default async function NewRoom() {
   const prisma = new PrismaClient();
 
   if (!session) {
-    redirect("/login");
+    redirect("/");
   }
 
   const rooms = await prisma.userToRoom.findMany({
