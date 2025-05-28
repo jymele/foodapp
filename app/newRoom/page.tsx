@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { PrismaClient } from "@/generated/prisma";
 import Link from "next/link";
 import SubmitButton from "@/custom/SubmitButton";
+import { Plus } from "lucide-react";
 
 export default async function NewRoom() {
   const session = await auth();
@@ -44,7 +45,9 @@ export default async function NewRoom() {
           aria-required
           required
         />
-        <SubmitButton />
+        <SubmitButton>
+          <Plus className="text-slate-700" />
+        </SubmitButton>
       </Form>
     </div>
   );
