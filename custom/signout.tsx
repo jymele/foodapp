@@ -12,7 +12,7 @@ export default function SignOut() {
       disabled={loading}
       onClick={() => {
         setLoading(true);
-        signOut({ callbackUrl: "/login" });
+        signOut({ callbackUrl: "/" });
       }}
     >
       {!loading && <LogOut />}
