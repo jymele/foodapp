@@ -27,7 +27,7 @@ export default async function DashboardPage() {
     where: { roomId: room!.id },
   });
 
-  console.log("Meals:", meals);
+  // console.log("Meals:", meals);
 
   return (
     <div className="mt-14 container mx-auto p-2">
@@ -46,11 +46,13 @@ export default async function DashboardPage() {
       <div>
         <div>Meals from Room {}</div>
         {meals.map((meal) => (
-          <div key={meal.id} className="bg-white p-2 rounded-md mt-4">
-            <h2 className="text-lg font-semibold">{meal.name}</h2>
-            <p>{new Date(meal.date).toLocaleDateString()}</p>
-            <p>{meal.description}</p>
-            <p>Added by: {meal.addedByEmail}</p>
+          <div key={meal.id} className="bg-white rounded-lg shadow-sm mt-4 p-4">
+            <h2 className="font-semibold leading-none tracking-tight mb-4">
+              {meal.name}
+            </h2>
+            <div>{new Date(meal.date).toLocaleDateString()}</div>
+            {meal.description && <div className="mt-0">{meal.description}</div>}
+            <div>Added by: {meal.addedByEmail}</div>
           </div>
         ))}
       </div>

@@ -21,7 +21,7 @@ export default async function AddMealPage() {
           type="date"
           name="date"
           className="input"
-          defaultValue={new Date().toISOString().split("T")[0]}
+          //   defaultValue={new Date().toISOString().split("T")[0]}
         />
         <input
           type="hidden"
