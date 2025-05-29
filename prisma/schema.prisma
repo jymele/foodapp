@@ -27,4 +27,5 @@ model Meal {
     description String
     date DateTime
     roomId String
+    addedByEmail String
 }

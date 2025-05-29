@@ -18,6 +18,11 @@ export default async function AddMealPage() {
         <h1 className="text-lg font-semibold mb-4">Add Meal</h1>
         <input name="meal-name" placeholder="Meal Name" className="input" />
         <input type="date" name="date" className="input" />
+        <input
+          type="hidden"
+          name="user-email"
+          value={session!.user!.email as string}
+        />
 
         <textarea
           name="description"
