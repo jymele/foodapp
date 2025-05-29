@@ -1,10 +1,10 @@
 "use server";
 import { PrismaClient } from "@/generated/prisma";
-import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export default async function submitMeal(formdata: FormData) {
   const mealName = formdata.get("meal-name") as string;
-  const mealType = formdata.get("meal-type") as string;
+  // const mealType = formdata.get("meal-type") as string;
   const userEmail = formdata.get("user-email") as string;
   const date = formdata.get("date") as string;
   const description = formdata.get("description") as string;
@@ -22,19 +22,16 @@ export default async function submitMeal(formdata: FormData) {
   }
 
   // Add the meal to the database
-  const data = await prisma.meal.create({
+  await prisma.meal.create({
     data: {
       name: mealName,
       // type: mealType,
       date: new Date(date),
       description: description,
-      roomId: userToRoom.id,
+      roomId: userToRoom.roomId,
       addedByEmail: userEmail,
     },
   });
 
-  console.log("Meal added:", data);
-  // Optionally, you can revalidate the path to update the UI
-
-  revalidatePath("/addmeal");
+  redirect("/dashboard");
 }

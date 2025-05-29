@@ -17,7 +17,12 @@ export default async function AddMealPage() {
       <Form action={submitMeal} className="flex flex-col gap-4 p-4">
         <h1 className="text-lg font-semibold mb-4">Add Meal</h1>
         <input name="meal-name" placeholder="Meal Name" className="input" />
-        <input type="date" name="date" className="input" />
+        <input
+          type="date"
+          name="date"
+          className="input"
+          defaultValue={new Date().toISOString().split("T")[0]}
+        />
         <input
           type="hidden"
           name="user-email"
