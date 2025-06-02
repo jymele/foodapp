@@ -1,7 +1,8 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { PrismaClient } from "@/generated/prisma";
-import Link from "next/link";
+import MealCard from "@/custom/MealCard";
+import Image from "next/image";
 import checkIfLoggedIn from "@/utils/checkIfLoggedIn";
 
 export default async function DashboardPage() {
@@ -27,33 +28,44 @@ export default async function DashboardPage() {
     where: { roomId: room!.id },
   });
 
-  // console.log("Meals:", meals);
-
   return (
     <div className="mt-14 container mx-auto p-2">
-      <div className="bg-white p-2 rounded-md">
+      <div className="mx-auto container p-2 flex justify-between items-center">
+        <div>
+          <h1 className="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl text-slate-950">
+            Dashboard
+          </h1>
+          <p className="!text-muted-foreground text-[1.05rem] text-balance sm:text-base">
+            {new Date().toLocaleDateString()}
+          </p>
+        </div>
+        <div>
+          <Image
+            src={session!.user?.image || ""}
+            alt="User Image"
+            width={50}
+            height={50}
+            className="rounded-full"
+          />
+        </div>
+      </div>
+      {/* <div className="bg-white p-2 rounded-md">
         <p>{room?.name}</p>
         <p>Hello {session!.user?.name}</p>
         <p>{session!.user?.email}</p>
+        <p>{session!.user?.image}</p>
         <Link
           href="addmeal"
           className="transition duration-200 mt-4 hover:underline"
         >
           Add a meal
         </Link>
-      </div>
+      </div> */}
 
       <div>
         <div>Meals from Room {}</div>
         {meals.map((meal) => (
-          <div key={meal.id} className="bg-white rounded-lg shadow-sm mt-4 p-4">
-            <h2 className="font-semibold leading-none tracking-tight mb-4">
-              {meal.name}
-            </h2>
-            <div>{new Date(meal.date).toLocaleDateString()}</div>
-            {meal.description && <div className="mt-0">{meal.description}</div>}
-            <div>Added by: {meal.addedByEmail}</div>
-          </div>
+          <MealCard key={meal.id} meal={meal} />
         ))}
       </div>
     </div>
