@@ -4,6 +4,7 @@ import SubmitButton from "@/custom/SubmitButton";
 import { SendHorizontal } from "lucide-react";
 import { auth } from "@/auth";
 import checkIfLoggedIn from "@/utils/checkIfLoggedIn";
+import appSettings from "@/appsettings";
 
 export default async function AddMealPage() {
   const session = await auth();
@@ -21,7 +22,9 @@ export default async function AddMealPage() {
           type="date"
           name="date"
           className="input"
-          //   defaultValue={new Date().toISOString().split("T")[0]}
+          defaultValue={new Date().toLocaleDateString(
+            appSettings.defaultLanguage
+          )}
         />
         <input
           type="hidden"

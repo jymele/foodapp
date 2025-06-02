@@ -4,6 +4,7 @@ import { PrismaClient } from "@/generated/prisma";
 import MealCard from "@/custom/MealCard";
 import checkIfLoggedIn from "@/utils/checkIfLoggedIn";
 import ProfileIcon from "@/custom/ProfileIcon";
+import appSettings from "@/appsettings";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -36,7 +37,7 @@ export default async function DashboardPage() {
             Dashboard
           </h1>
           <p className="!text-muted-foreground text-[1.05rem] text-balance sm:text-base">
-            {new Date().toLocaleDateString()}
+            {new Date().toLocaleDateString(appSettings.defaultLanguage)}
           </p>
         </div>
         <div>

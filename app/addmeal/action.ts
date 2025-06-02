@@ -1,6 +1,7 @@
 "use server";
 import { PrismaClient } from "@/generated/prisma";
 import { redirect } from "next/navigation";
+import appSettings from "@/appsettings";
 
 export default async function submitMeal(formdata: FormData) {
   const mealName = formdata.get("meal-name") as string;
@@ -22,11 +23,14 @@ export default async function submitMeal(formdata: FormData) {
   }
 
   // Add the meal to the database
+  // Parse the date and set time to noon (12:00:00)
+  const mealDate = new Date(date);
+
   await prisma.meal.create({
     data: {
       name: mealName,
       // type: mealType,
-      date: new Date(date),
+      date: mealDate,
       description: description,
       roomId: userToRoom.roomId,
       addedByEmail: userEmail,
