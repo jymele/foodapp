@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { motion } from "motion/react";
 
 type Props = {
   image: string | null | undefined;
@@ -7,7 +8,13 @@ type Props = {
 
 export default function ProfileIcon({ image }: Props) {
   return (
-    <div className="relative">
+    <div className="relative p-1">
+      <motion.div
+        className="absolute inset-0 bg-blue-600 rounded-full -z-10"
+        initial={{ scale: 0.8 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.3 }}
+      ></motion.div>
       <Image
         src={image || ""}
         alt="User Image"

@@ -41,29 +41,8 @@ export default async function DashboardPage() {
         </div>
         <div>
           {session!.user?.image && <ProfileIcon image={session!.user?.image} />}
-
-          {/* <Image
-            src={session!.user?.image || ""}
-            alt="User Image"
-            width={50}
-            height={50}
-            className="rounded-full"
-          /> */}
         </div>
       </div>
-      {/* <div className="bg-white p-2 rounded-md">
-        <p>{room?.name}</p>
-        <p>Hello {session!.user?.name}</p>
-        <p>{session!.user?.email}</p>
-        <p>{session!.user?.image}</p>
-        <Link
-          href="addmeal"
-          className="transition duration-200 mt-4 hover:underline"
-        >
-          Add a meal
-        </Link>
-      </div> */}
-
       <div>
         <div>Meals from Room {}</div>
         {meals.map((meal) => (
