@@ -15,3 +15,7 @@ body {
 .input {
   @apply px-3 py-2 bg-white shadow-sm rounded-md;
 }
+
+.toggle-button {
+  @apply disabled:text-slate-400 cursor-pointer disabled:cursor-default;
+}
