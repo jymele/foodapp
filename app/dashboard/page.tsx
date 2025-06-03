@@ -57,7 +57,7 @@ export default async function DashboardPage() {
             Dashboard
           </h1>
           <p className="!text-muted-foreground text-[1.05rem] text-balance sm:text-base">
-            {new Date().toLocaleDateString(appSettings.defaultLanguage)}
+            {new Date().toDateString()}
           </p>
         </div>
         <div>
