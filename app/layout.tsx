@@ -21,7 +21,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased`}>
-        {session && <SignOut />}
+        {/* {session && <SignOut />} */}
         {children}
       </body>
     </html>

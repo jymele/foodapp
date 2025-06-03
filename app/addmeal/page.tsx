@@ -4,7 +4,6 @@ import SubmitButton from "@/custom/SubmitButton";
 import { SendHorizontal } from "lucide-react";
 import { auth } from "@/auth";
 import checkIfLoggedIn from "@/utils/checkIfLoggedIn";
-import appSettings from "@/appsettings";
 
 export default async function AddMealPage() {
   const session = await auth();
@@ -14,7 +13,7 @@ export default async function AddMealPage() {
   checkIfLoggedIn();
 
   return (
-    <div className="mt-14 container mx-auto p-2">
+    <div className="page">
       <Form action={submitMeal} className="flex flex-col gap-4 p-4">
         <h1 className="text-lg font-semibold mb-4">Add Meal</h1>
         <input name="meal-name" placeholder="Meal Name" className="input" />
@@ -22,9 +21,9 @@ export default async function AddMealPage() {
           type="date"
           name="date"
           className="input"
-          defaultValue={new Date().toLocaleDateString(
-            appSettings.defaultLanguage
-          )}
+          // defaultValue={new Date().toLocaleDateString(
+          //   appSettings.defaultLanguage
+          // )}
         />
         <input
           type="hidden"

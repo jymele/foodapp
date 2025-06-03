@@ -8,7 +8,7 @@ export default function SignOut() {
 
   return (
     <button
-      className="btn outline-slate-500/0 focus:outline-slate-400 bg-white absolute top-4 right-4 "
+      className="btn outline-slate-500/0 focus:outline-slate-400 bg-white"
       disabled={loading}
       onClick={() => {
         setLoading(true);
