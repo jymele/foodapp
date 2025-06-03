@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 body {
-  @apply bg-slate-100 text-slate-600 antialiased;
+  @apply bg-slate-100 text-slate-800 antialiased;
 }
 
 .page {
