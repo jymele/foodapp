@@ -1,5 +1,4 @@
 import { Meal } from "@/generated/prisma";
-import appSettings from "@/appsettings";
 
 type Props = {
   meal: Meal;
@@ -15,7 +14,7 @@ export default function MealCard(props: Props) {
           {meal.name}
         </h2>
         <div className="mt-0 text-xs">
-          {meal.date.toLocaleDateString(appSettings.defaultLanguage)}
+          {new Date(meal.date).toISOString().slice(0, 10)}
         </div>
       </div>
       {meal.description && (
