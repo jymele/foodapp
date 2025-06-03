@@ -2,9 +2,8 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { PrismaClient } from "@/generated/prisma";
 import checkIfLoggedIn from "@/utils/checkIfLoggedIn";
-import ProfileIcon from "@/custom/ProfileIcon";
-import appSettings from "@/appsettings";
 import DashboardClient from "./client";
+import Navigation from "@/custom/Navigation";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -61,7 +60,7 @@ export default async function DashboardPage() {
           </p>
         </div>
         <div>
-          {session!.user?.image && <ProfileIcon image={session!.user?.image} />}
+          <Navigation session={session} />
         </div>
       </div>
       <div>
