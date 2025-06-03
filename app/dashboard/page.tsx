@@ -1,10 +1,10 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { PrismaClient } from "@/generated/prisma";
-import MealCard from "@/custom/MealCard";
 import checkIfLoggedIn from "@/utils/checkIfLoggedIn";
 import ProfileIcon from "@/custom/ProfileIcon";
 import appSettings from "@/appsettings";
+import DashboardClient from "./client";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -29,6 +29,26 @@ export default async function DashboardPage() {
     where: { roomId: room!.id },
   });
 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const todaysMeals = meals.filter((meal) => {
+    const mealDate = new Date(meal.date);
+    mealDate.setHours(0, 0, 0, 0);
+    return mealDate.getTime() === today.getTime();
+  });
+
+  const startOfWeek = new Date(today);
+  startOfWeek.setDate(today.getDate() - today.getDay());
+  const endOfWeek = new Date(startOfWeek);
+  endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+  const weeksMeals = meals.filter((meal) => {
+    const mealDate = new Date(meal.date);
+    mealDate.setHours(0, 0, 0, 0);
+    return mealDate >= startOfWeek && mealDate <= endOfWeek;
+  });
+
   return (
     <div className="page">
       <div className="mx-auto container p-2 flex justify-between items-center">
@@ -45,10 +65,7 @@ export default async function DashboardPage() {
         </div>
       </div>
       <div>
-        <div>Meals from Room {}</div>
-        {meals.map((meal) => (
-          <MealCard key={meal.id} meal={meal} />
-        ))}
+        <DashboardClient todaysMeals={todaysMeals} weeksMeals={weeksMeals} />
       </div>
     </div>
   );
