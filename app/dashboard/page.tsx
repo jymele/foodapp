@@ -51,7 +51,7 @@ export default async function DashboardPage() {
   return (
     <div className="page">
       <div className="mx-auto container flex justify-between items-center">
-        <div>
+        <div className="mb-6">
           <h1 className="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl text-slate-950">
             Dashboard
           </h1>

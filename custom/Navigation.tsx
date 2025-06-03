@@ -1,12 +1,15 @@
 "use client";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Menu } from "lucide-react";
+import Link from "next/link";
 import Image from "next/image";
 import { Session } from "next-auth";
+import { signOut } from "next-auth/react";
+import { LogOut, LoaderCircle, Menu } from "lucide-react";
 
 export default function Navigation({ session }: { session: Session | null }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const userImage = session?.user?.image || null;
 
   return (
@@ -43,28 +46,39 @@ export default function Navigation({ session }: { session: Session | null }) {
             <div className="border-t border-slate-200">
               <ul className="p-3 space-y-2">
                 <li>
-                  <a
+                  <Link
                     href="/dashboard"
                     className="block px-4 py-2 text-sm text-slate-950 hover:bg-slate-100 rounded-lg"
                   >
                     Dashboard
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     href="/settings"
                     className="block px-4 py-2 text-sm text-slate-950 hover:bg-slate-100 rounded-lg"
                   >
                     Settings
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="/logout"
-                    className="block px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg"
+                  <button
+                    className="block px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg w-full cursor-pointer"
+                    disabled={loading}
+                    onClick={() => {
+                      setLoading(true);
+                      signOut({ callbackUrl: "/" });
+                    }}
                   >
-                    Logout
-                  </a>
+                    <div className="flex items-center justify-between">
+                      {loading ? (
+                        <LoaderCircle className="animate-spin" />
+                      ) : (
+                        <LogOut />
+                      )}
+                      Logout
+                    </div>
+                  </button>
                 </li>
               </ul>
             </div>
