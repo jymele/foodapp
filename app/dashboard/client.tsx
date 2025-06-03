@@ -13,8 +13,8 @@ export default function DashboardClient({ todaysMeals, weeksMeals }: Props) {
   const [toggleDay, setToggleDay] = useState(true);
 
   return (
-    <div className="page">
-      <div className="p-2">
+    <>
+      <div className="py-2">
         <div className="mx-auto rounded-full bg-slate-200  p-1 w-fit flex gap-1">
           <button
             className="toggle-button disabled:text-slate-400 cursor-pointer"
@@ -58,6 +58,6 @@ export default function DashboardClient({ todaysMeals, weeksMeals }: Props) {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </>
   );
 }
