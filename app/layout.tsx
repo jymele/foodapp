@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { auth } from "@/auth";
+import { Geist } from "next/font/google";
 import "./globals.css";
 import appSettings from "@/appsettings";
 
@@ -10,6 +10,12 @@ export const metadata: Metadata = {
   keywords: ["meal planning", "meal tracker", "food management"],
 };
 
+const geist = Geist({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--geist-font",
+});
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -17,7 +23,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased`}>{children}</body>
+      <body className={`${geist.className}`}>{children}</body>
     </html>
   );
 }
