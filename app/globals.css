@@ -17,5 +17,5 @@ body {
 }
 
 .toggle-button {
-  @apply disabled:text-slate-400 cursor-pointer disabled:cursor-default;
+  @apply transition duration-150 cursor-pointer disabled:cursor-default bg-white/0 disabled:bg-white px-2.5 py-1.5 rounded-full disabled:shadow-sm text-slate-600 hover:bg-slate-50 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-slate-300;
 }
