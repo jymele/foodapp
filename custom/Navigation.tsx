@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
-import { LogOut, LoaderCircle, Menu } from "lucide-react";
+import { LogOut, LoaderCircle, Menu, Settings, House } from "lucide-react";
 
 export default function Navigation({ session }: { session: Session | null }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,7 +50,10 @@ export default function Navigation({ session }: { session: Session | null }) {
                     href="/dashboard"
                     className="block px-4 py-2 text-sm text-slate-950 hover:bg-slate-100 rounded-lg"
                   >
-                    Dashboard
+                    <div className="flex items-center justify-between gap-6">
+                      <House className="w-4 h-4" />
+                      Dashboard
+                    </div>
                   </Link>
                 </li>
                 <li>
@@ -58,7 +61,10 @@ export default function Navigation({ session }: { session: Session | null }) {
                     href="/settings"
                     className="block px-4 py-2 text-sm text-slate-950 hover:bg-slate-100 rounded-lg"
                   >
-                    Settings
+                    <div className="flex items-center justify-between gap-6">
+                      <Settings className="w-4 h-4" />
+                      Settings
+                    </div>
                   </Link>
                 </li>
                 <li>
@@ -70,11 +76,11 @@ export default function Navigation({ session }: { session: Session | null }) {
                       signOut({ callbackUrl: "/" });
                     }}
                   >
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-6">
                       {loading ? (
-                        <LoaderCircle className="animate-spin" />
+                        <LoaderCircle className="animate-spin w-4 h-4" />
                       ) : (
-                        <LogOut />
+                        <LogOut className="w-4 h-4" />
                       )}
                       Logout
                     </div>
