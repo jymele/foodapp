@@ -1,11 +1,9 @@
 "use server";
 import { PrismaClient } from "@/generated/prisma";
 import { redirect } from "next/navigation";
-import appSettings from "@/appsettings";
 
 export default async function submitMeal(formdata: FormData) {
   const mealName = formdata.get("meal-name") as string;
-  // const mealType = formdata.get("meal-type") as string;
   const userEmail = formdata.get("user-email") as string;
   const date = formdata.get("date") as string;
   const description = formdata.get("description") as string;

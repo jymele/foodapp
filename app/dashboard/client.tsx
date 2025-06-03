@@ -40,7 +40,7 @@ export default function DashboardClient({ todaysMeals, weeksMeals }: Props) {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <h1 className="text-lg font-semibold mb-4">Today's Meals</h1>
+            <h1 className="text-lg font-semibold mb-4">Today</h1>
             <MealList meals={todaysMeals} />
           </motion.div>
         )}
@@ -51,7 +51,7 @@ export default function DashboardClient({ todaysMeals, weeksMeals }: Props) {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <h1 className="text-lg font-semibold mb-4">This Week's Meals</h1>
+            <h1 className="text-lg font-semibold mb-4">This Week</h1>
             <MealList meals={weeksMeals} />
           </motion.div>
         )}
