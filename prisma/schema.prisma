@@ -36,4 +36,5 @@ model Invitations {
   id String @id @default(cuid())
   inviteeEmail String 
   inviterEmail String
+  roomId String
 }
