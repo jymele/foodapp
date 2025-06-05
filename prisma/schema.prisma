@@ -28,4 +28,12 @@ model Meal {
     date DateTime
     roomId String
     addedByEmail String
+
+    updatedAt DateTime @updatedAt
+}
+
+model Invitations {
+  id String @id @default(cuid())
+  inviteeEmail String 
+  inviterEmail String
 }
