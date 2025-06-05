@@ -1,27 +1,37 @@
 import checkIfLoggedIn from "@/utils/checkIfLoggedIn";
 import { auth } from "@/auth";
-import SignOut from "@/custom/signout";
 import Navigation from "@/custom/Navigation";
+import MembersBlock from "./member";
+import { PrismaClient } from "@/generated/prisma";
 
 export default async function ProfilePage() {
   checkIfLoggedIn();
 
   const session = await auth();
+  const prisma = new PrismaClient();
+
+  // If you only have userEmail, use findFirst instead:
+  const roomInfo = await prisma.userToRoom.findFirst({
+    where: { userEmail: session!.user?.email as string },
+  });
+
+  // const roomid = roomInfo?.id;
+
+  // find all the members in the room id
+  const members = await prisma.userToRoom.findMany({
+    where: { roomId: roomInfo?.roomId },
+    // include: { user: true },
+  });
+
+  console.log(members);
 
   return (
     <div className="page flex flex-col gap-2">
       <div className="flex flex-row-reverse mb-6">
         <Navigation session={session} />
       </div>
-      <div className="flex-1">
-        <div className="flex justify-between items-center">
-          <h1>{session!.user?.name}</h1>
-          <div>
-            <SignOut />
-          </div>
-        </div>
-
-        <p>This is the profile page.</p>
+      <div>
+        <MembersBlock members={members} />
       </div>
     </div>
   );
