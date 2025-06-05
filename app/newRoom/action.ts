@@ -25,6 +25,7 @@ export async function createRoom(formData: FormData) {
       data: {
         userEmail: userEmail as string,
         roomId: newRoom.id,
+        admin: true,
       },
     });
 

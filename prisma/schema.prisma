@@ -18,6 +18,7 @@ model UserToRoom {
     id String @id @default(cuid())
     userEmail String
     roomId String
+    admin Boolean
     room Room @relation(fields: [roomId], references: [id])
 }
 
