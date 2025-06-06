@@ -3,6 +3,7 @@ import { auth } from "@/auth";
 import Navigation from "@/custom/Navigation";
 import MembersBlock from "./member";
 import { PrismaClient } from "@/generated/prisma";
+import { redirect } from "next/navigation";
 
 export default async function ProfilePage() {
   checkIfLoggedIn();
@@ -13,6 +14,10 @@ export default async function ProfilePage() {
   const userHousehold = await prisma.userHousehold.findFirst({
     where: { user_email: session!.user?.email as string },
   });
+
+  if (!userHousehold) {
+    redirect("/new-household");
+  }
 
   // find all the members in the room id
   const members = await prisma.userHousehold.findMany({
