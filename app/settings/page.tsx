@@ -20,15 +20,13 @@ export default async function ProfilePage() {
     // include: { user: true },
   });
 
-  console.log(members);
-
   return (
     <div className="page flex flex-col gap-2">
       <div className="flex flex-row-reverse mb-6">
         <Navigation session={session} />
       </div>
       <div>
-        <MembersBlock members={members} />
+        <MembersBlock members={members} admin={userHousehold?.admin} />
       </div>
     </div>
   );
