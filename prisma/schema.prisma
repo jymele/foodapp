@@ -8,18 +8,22 @@ generator client {
   output   = "../generated/prisma"
 }
 
-model Room {
-    id String @id @default(cuid())
-    name String
-    usersToRooms UserToRoom[]
+model Users {
+  id String @id @default(cuid())
+  email String
+  name String
 }
 
-model UserToRoom {
+model Household {
     id String @id @default(cuid())
-    userEmail String
-    roomId String
+    name String
+}
+
+model UserHousehold {
+    id String @id @default(cuid())
+    user_email String
+    household_id String
     admin Boolean
-    room Room @relation(fields: [roomId], references: [id])
 }
 
 model Meal {
@@ -27,15 +31,15 @@ model Meal {
     name String
     description String
     date DateTime
-    roomId String
-    addedByEmail String
+    household_id String
+    created_by_email String
 
     updatedAt DateTime @updatedAt
 }
 
 model Invitations {
   id String @id @default(cuid())
-  inviteeEmail String 
-  inviterEmail String
-  roomId String
+  invitee_email String 
+  inviter_email String
+  household_id String
 }

@@ -13,14 +13,14 @@ export default async function NewRoom() {
 
   checkIfLoggedIn();
 
-  const rooms = await prisma.userToRoom.findMany({
-    where: { userEmail: session!.user!.email as string },
+  const rooms = await prisma.userHousehold.findMany({
+    where: { user_email: session!.user!.email as string },
   });
 
   if (rooms.length > 0) {
     return (
       <div className="mt-14 flex items-center justify-center flex-col container mx-auto p-2">
-        <h1 className="mb-4">You already have a room</h1>
+        <h1 className="mb-4">You are already assigned to a household</h1>
 
         <Link href="/dashboard">Go to Dashboard</Link>
       </div>
@@ -29,15 +29,15 @@ export default async function NewRoom() {
 
   return (
     <div className="container mx-auto h-dvh flex flex-col items-center justify-center p-2">
-      <h1 className="font-semibold mb-2 text-lg">Create a Room</h1>
+      <h1 className="font-semibold mb-2 text-lg">Create a Household</h1>
       <Form
         action={createRoom}
         className="transition duration-200 bg-white px-3.5 py-2.5 w-fit rounded-md shadow-sm flex"
       >
-        <input type="text" name="roomname" placeholder="Room Name" />
+        <input type="text" name="household-name" placeholder="Household Name" />
         <input
           type="hidden"
-          name="userEmail"
+          name="user-email"
           value={session!.user!.email as string}
           className=""
           aria-required

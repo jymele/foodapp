@@ -11,21 +11,21 @@ export default async function DashboardPage() {
   checkIfLoggedIn();
 
   const prisma = new PrismaClient();
-  const roomAssignment = await prisma.userToRoom.findFirst({
-    where: { userEmail: session!.user!.email as string },
+  const userHousehold = await prisma.userHousehold.findFirst({
+    where: { user_email: session!.user!.email as string },
   });
 
-  if (!roomAssignment) {
-    redirect("/newRoom");
+  if (!userHousehold) {
+    redirect("/new-household");
   }
 
-  const room = await prisma.room.findUnique({
-    where: { id: roomAssignment.roomId },
+  const household = await prisma.household.findUnique({
+    where: { id: userHousehold.household_id },
   });
 
   // Get the meals assigned to the room
   const meals = await prisma.meal.findMany({
-    where: { roomId: room!.id },
+    where: { household_id: household!.id },
   });
 
   const today = new Date();

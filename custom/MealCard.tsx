@@ -20,7 +20,7 @@ export default function MealCard(props: Props) {
       {meal.description && (
         <div className="mt-0 text-sm mb-2">{meal.description}</div>
       )}
-      <div className="mt-0 text-xs italic">{meal.addedByEmail}</div>
+      <div className="mt-0 text-xs italic">{meal.created_by_email}</div>
     </div>
   );
 }

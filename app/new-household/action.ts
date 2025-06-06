@@ -5,8 +5,8 @@ import { PrismaClient } from "@/generated/prisma";
 export async function createRoom(formData: FormData) {
   console.log("Form data:", formData);
 
-  const roomName = formData.get("roomname");
-  const userEmail = formData.get("userEmail");
+  const roomName = formData.get("household-name");
+  const userEmail = formData.get("user-email");
 
   if (!roomName || !userEmail) {
     console.error("Room name or user email is missing");
@@ -14,17 +14,17 @@ export async function createRoom(formData: FormData) {
     const prisma = new PrismaClient();
 
     // Create the room
-    const newRoom = await prisma.room.create({
+    const newHousehold = await prisma.household.create({
       data: {
         name: roomName as string,
       },
     });
 
     // Assign the user to the room
-    await prisma.userToRoom.create({
+    await prisma.userHousehold.create({
       data: {
-        userEmail: userEmail as string,
-        roomId: newRoom.id,
+        user_email: userEmail as string,
+        household_id: newHousehold.id,
         admin: true,
       },
     });

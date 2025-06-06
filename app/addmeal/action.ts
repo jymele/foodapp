@@ -11,11 +11,11 @@ export default async function submitMeal(formdata: FormData) {
   const prisma = new PrismaClient();
 
   // Get the room ID for the user
-  const userToRoom = await prisma.userToRoom.findFirst({
-    where: { userEmail: userEmail },
+  const userHousehold = await prisma.userHousehold.findFirst({
+    where: { user_email: userEmail },
   });
 
-  if (!userToRoom) {
+  if (!userHousehold) {
     console.error("User is not assigned to any room.");
     return;
   }
@@ -30,8 +30,8 @@ export default async function submitMeal(formdata: FormData) {
       // type: mealType,
       date: mealDate,
       description: description,
-      roomId: userToRoom.roomId,
-      addedByEmail: userEmail,
+      household_id: userHousehold.household_id,
+      created_by_email: userEmail,
     },
   });
 

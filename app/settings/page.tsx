@@ -10,16 +10,13 @@ export default async function ProfilePage() {
   const session = await auth();
   const prisma = new PrismaClient();
 
-  // If you only have userEmail, use findFirst instead:
-  const roomInfo = await prisma.userToRoom.findFirst({
-    where: { userEmail: session!.user?.email as string },
+  const userHousehold = await prisma.userHousehold.findFirst({
+    where: { user_email: session!.user?.email as string },
   });
 
-  // const roomid = roomInfo?.id;
-
   // find all the members in the room id
-  const members = await prisma.userToRoom.findMany({
-    where: { roomId: roomInfo?.roomId },
+  const members = await prisma.userHousehold.findMany({
+    where: { household_id: userHousehold?.household_id },
     // include: { user: true },
   });
 

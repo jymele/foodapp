@@ -1,9 +1,9 @@
 "use client";
-import { UserToRoom } from "@/generated/prisma";
+import { UserHousehold } from "@/generated/prisma";
 import { motion } from "motion/react";
 
 type Props = {
-  members: UserToRoom[];
+  members: UserHousehold[];
 };
 
 export default function MembersBlock({ members }: Props) {
@@ -11,7 +11,7 @@ export default function MembersBlock({ members }: Props) {
     <motion.div>
       {members.map((item) => (
         <div key={item.id}>
-          {item.userEmail} - {item.admin ? "admin" : ""}
+          {item.user_email} - {item.admin ? "admin" : ""}
         </div>
       ))}
     </motion.div>
