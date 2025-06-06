@@ -1,6 +1,7 @@
 "use server";
 import { redirect } from "next/navigation";
 import { PrismaClient } from "@/generated/prisma";
+import { revalidatePath } from "next/cache";
 
 const prisma = new PrismaClient();
 
@@ -67,4 +68,21 @@ export async function acceptInvitation(formData: FormData) {
   });
 
   redirect("/dashboard");
+}
+
+export async function rejectInvitation(formData: FormData) {
+  const invitationId = formData.get("invitation-id");
+
+  if (!invitationId) {
+    console.error("Invitation ID is missing");
+    return;
+  }
+
+  // Delete the invitation
+  await prisma.invitation.delete({
+    where: { id: invitationId as string },
+  });
+
+  // redirect("/dashboard")
+  revalidatePath("/new-household");
 }
