@@ -10,18 +10,18 @@ type Props = {
 export default function MembersBlock({ members, admin }: Props) {
   return (
     <motion.div>
-      {members.map((item) => (
+      {members.map((member) => (
         <div
-          key={item.id}
+          key={member.id}
           className="flex items-center justify-between w-full border-t border-slate-200 py-4"
         >
           <div>
-            {item.user_email}
-            {item.admin && (
+            {member.user_email}
+            {member.admin && (
               <span className="text-xs text-blue-600"> (Admin)</span>
             )}
           </div>
-          {admin && <div className="">Remove member</div>}
+          {admin && !member.admin && <div className="">Remove member</div>}
         </div>
       ))}
     </motion.div>
