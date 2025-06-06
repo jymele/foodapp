@@ -3,7 +3,7 @@ import { PrismaClient } from "@/generated/prisma";
 import { revalidatePath } from "next/cache";
 
 export async function deleteMember(formData: FormData) {
-  const entryId = formData.get("user-household-id");
+  const entryId = formData.get("member-id");
 
   if (!entryId) {
     console.error("Member ID is missing");
