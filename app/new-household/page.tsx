@@ -6,6 +6,7 @@ import Link from "next/link";
 import SubmitButton from "@/custom/SubmitButton";
 import { Plus } from "lucide-react";
 import checkIfLoggedIn from "@/utils/checkIfLoggedIn";
+import InvitationList from "./invitation-list";
 
 export default async function NewRoom() {
   const session = await auth();
@@ -13,11 +14,11 @@ export default async function NewRoom() {
 
   checkIfLoggedIn();
 
-  const rooms = await prisma.userHousehold.findMany({
+  const households = await prisma.userHousehold.findMany({
     where: { user_email: session!.user!.email as string },
   });
 
-  if (rooms.length > 0) {
+  if (households.length > 0) {
     return (
       <div className="mt-14 flex items-center justify-center flex-col container mx-auto p-2">
         <h1 className="mb-4">You are already assigned to a household</h1>
@@ -26,6 +27,11 @@ export default async function NewRoom() {
       </div>
     );
   }
+
+  // Get all the list of invitations where this user email is the invitee_email
+  const invitations = await prisma.invitation.findMany({
+    where: { invitee_email: session!.user!.email as string },
+  });
 
   return (
     <div className="container mx-auto h-dvh flex flex-col items-center justify-center p-2">
@@ -47,6 +53,8 @@ export default async function NewRoom() {
           <Plus className="text-slate-700" />
         </SubmitButton>
       </Form>
+
+      <InvitationList invitations={invitations} />
     </div>
   );
 }

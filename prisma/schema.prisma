@@ -37,7 +37,7 @@ model Meal {
     updatedAt DateTime @updatedAt
 }
 
-model Invitations {
+model Invitation {
   id String @id @default(cuid())
   invitee_email String 
   inviter_email String
