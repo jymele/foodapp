@@ -14,7 +14,7 @@ export default async function AddMemberForm({ email }: Props) {
     where: { user_email: email as string },
   });
 
-  if (userHousehold?.admin) {
+  if (!userHousehold?.admin) {
     return <></>;
   }
 
