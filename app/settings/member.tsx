@@ -3,6 +3,7 @@ import { UserHousehold } from "@/generated/prisma";
 import { motion } from "motion/react";
 import Form from "next/form";
 import { deleteMember } from "./actions";
+import SubmitButton from "@/custom/SubmitButton";
 
 type Props = {
   members: UserHousehold[];
@@ -29,10 +30,10 @@ export default function MembersBlock({ members, admin }: Props) {
             {admin && !member.admin && (
               <Form action={deleteMember} className="">
                 <input type="hidden" name="member-id" value={member.id} />
-                <button className="cursor-pointer text-red-700" type="submit">
+                <SubmitButton classes="text-red-700">
                   <span className="sr-only">Remove member</span>
                   Remove member
-                </button>
+                </SubmitButton>
               </Form>
             )}
           </div>

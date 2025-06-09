@@ -48,6 +48,9 @@ export default async function DashboardPage() {
         lte: endOfWeek,
       },
     },
+    orderBy: {
+      date: "asc",
+    },
   });
 
   return (

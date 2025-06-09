@@ -1,7 +1,6 @@
 import Form from "next/form";
 import submitMeal from "./action";
 import SubmitButton from "@/custom/SubmitButton";
-import { SendHorizontal } from "lucide-react";
 import { auth } from "@/auth";
 import checkIfLoggedIn from "@/utils/checkIfLoggedIn";
 import appSettings from "@/appsettings";
