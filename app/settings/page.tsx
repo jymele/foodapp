@@ -3,9 +3,7 @@ import Navigation from "@/custom/Navigation";
 import MembersBlock from "./member";
 import { PrismaClient } from "@/generated/prisma";
 import { redirect } from "next/navigation";
-import { addMember } from "./actions";
-import Form from "next/form";
-import SubmitButton from "@/custom/SubmitButton";
+import AddMemberForm from "./addMemberForm";
 
 export default async function ProfilePage() {
   const session = await auth();
@@ -30,31 +28,7 @@ export default async function ProfilePage() {
       <div className="flex flex-row-reverse mb-6">
         <Navigation session={session} />
       </div>
-      <Form
-        action={addMember}
-        className="bg-white flex items-center gap-4  rounded-lg shadow-sm overflow-hidden"
-      >
-        <input
-          type="email"
-          name="invitee_email"
-          placeholder="user@gmail.com"
-          className="flex-1 py-2.5 px-2 h-full outline-0"
-          required
-        />
-        <input
-          type="hidden"
-          name="household_id"
-          value={userHousehold.household_id}
-        />
-        <input
-          type="hidden"
-          name="inviter_email"
-          value={session!.user!.email as string}
-        />
-        <SubmitButton classes="rounded-lg px-3.5 py-2.5 bg-white">
-          Add
-        </SubmitButton>
-      </Form>
+      <AddMemberForm email={session!.user!.email as string} />
       <div>
         <MembersBlock members={members} admin={userHousehold?.admin} />
       </div>
