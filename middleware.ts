@@ -1,7 +1,6 @@
 // export { auth  } from "@/auth";
 import { auth } from "@/auth";
 import { NextRequest, NextResponse } from "next/server";
-import checkIfLoggedIn from "./utils/checkIfLoggedIn";
 
 const pathsWithHouseholdIds: string[] = ["/settings", "/addmeal", "/dashboard"];
 
@@ -19,6 +18,8 @@ export async function middleware(request: NextRequest) {
   if (!pathsWithHouseholdIds.includes(path)) {
     return NextResponse.redirect(new URL("/new-household", request.url));
   }
+
+  return NextResponse.next();
 }
 
 export const config = {
