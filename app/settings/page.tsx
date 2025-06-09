@@ -1,4 +1,3 @@
-import checkIfLoggedIn from "@/utils/checkIfLoggedIn";
 import { auth } from "@/auth";
 import Navigation from "@/custom/Navigation";
 import MembersBlock from "./member";
@@ -9,8 +8,6 @@ import Form from "next/form";
 import SubmitButton from "@/custom/SubmitButton";
 
 export default async function ProfilePage() {
-  checkIfLoggedIn();
-
   const session = await auth();
   const prisma = new PrismaClient();
 

@@ -5,14 +5,11 @@ import { PrismaClient } from "@/generated/prisma";
 import Link from "next/link";
 import SubmitButton from "@/custom/SubmitButton";
 import { Plus } from "lucide-react";
-import checkIfLoggedIn from "@/utils/checkIfLoggedIn";
 import InvitationList from "./invitation-list";
 
 export default async function NewRoom() {
   const session = await auth();
   const prisma = new PrismaClient();
-
-  checkIfLoggedIn();
 
   const households = await prisma.userHousehold.findMany({
     where: { user_email: session!.user!.email as string },

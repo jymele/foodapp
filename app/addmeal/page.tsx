@@ -2,15 +2,10 @@ import Form from "next/form";
 import submitMeal from "./action";
 import SubmitButton from "@/custom/SubmitButton";
 import { auth } from "@/auth";
-import checkIfLoggedIn from "@/utils/checkIfLoggedIn";
 import appSettings from "@/appsettings";
 
 export default async function AddMealPage() {
   const session = await auth();
-
-  // use the user email to find the room the user is in
-
-  checkIfLoggedIn();
 
   return (
     <div className="page">
