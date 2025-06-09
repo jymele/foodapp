@@ -5,6 +5,11 @@ import checkIfLoggedIn from "@/utils/checkIfLoggedIn";
 import DashboardClient from "./client";
 import Navigation from "@/custom/Navigation";
 import Link from "next/link";
+import {
+  getUTCDate,
+  getStartofWeekFromDate,
+  getEndofWeekFromDate,
+} from "@/utils/date";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -24,42 +29,25 @@ export default async function DashboardPage() {
     where: { id: userHousehold.household_id },
   });
 
-  // Get the meals assigned to the room
-  const meals = await prisma.meal.findMany({
-    where: { household_id: household!.id },
-  });
-
-  console.log(meals);
-
   const date = new Date();
   // Convert the date to the same timezone as the database date
-  const today = new Date(
-    Date.UTC(
-      date.getUTCFullYear(),
-      date.getUTCMonth(),
-      date.getUTCDate(),
-      0,
-      0,
-      0,
-      0
-    )
-  );
+  const today = getUTCDate(date);
 
-  console.log("day", today);
-
-  const todaysMeals = meals.filter((meal) => {
-    const mealDate = new Date(meal.date);
-    return mealDate.getTime() === today.getTime();
+  const todaysMeals = await prisma.meal.findMany({
+    where: { household_id: household!.id, date: today },
   });
 
-  const startOfWeek = new Date(today);
-  startOfWeek.setDate(today.getDate() - today.getDay());
-  const endOfWeek = new Date(startOfWeek);
-  endOfWeek.setDate(startOfWeek.getDate() + 6);
+  const startOfWeek = getStartofWeekFromDate(today);
+  const endOfWeek = getEndofWeekFromDate(today);
 
-  const weeksMeals = meals.filter((meal) => {
-    const mealDate = new Date(meal.date);
-    return mealDate >= startOfWeek && mealDate <= endOfWeek;
+  const weeksMeals = await prisma.meal.findMany({
+    where: {
+      household_id: household!.id,
+      date: {
+        gte: startOfWeek,
+        lte: endOfWeek,
+      },
+    },
   });
 
   return (
