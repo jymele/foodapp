@@ -1,20 +1,23 @@
-export { auth } from "@/auth";
-import { NextRequest } from "next/server";
+// export { auth  } from "@/auth";
+import { auth } from "@/auth";
+import { NextRequest, NextResponse } from "next/server";
 import checkIfLoggedIn from "./utils/checkIfLoggedIn";
-import { redirect } from "next/navigation";
 
 const pathsWithHouseholdIds: string[] = ["/settings", "/addmeal", "/dashboard"];
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   // Check if the user is logged in
-  checkIfLoggedIn();
+  const session = await auth();
+  if (!session) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
 
   // Check if the user is in a room for specific rooms
   const url = new URL(request.url);
   const path = url.pathname;
   //   console.log("Path is", path);
   if (!pathsWithHouseholdIds.includes(path)) {
-    redirect("new-household");
+    return NextResponse.redirect(new URL("/new-household", request.url));
   }
 }
 
