@@ -1,6 +1,7 @@
 import { acceptInvitation, rejectInvitation } from "@/app/new-household/action";
 import { Invitation } from "@/generated/prisma";
 import Form from "next/form";
+import SubmitButton from "./SubmitButton";
 
 type Props = {
   invitation: Invitation;
@@ -22,17 +23,13 @@ export default function InvitationCard({ invitation }: Props) {
             name="user-email"
             value={invitation.invitee_email}
           />
-          <button className="cursor-pointer" type="submit">
-            Accept
-          </button>
+          <SubmitButton>Accept</SubmitButton>
         </Form>
 
         {/* Reject the invitation */}
         <Form action={rejectInvitation}>
           <input type="hidden" name="invitation-id" value={invitation.id} />
-          <button className="cursor-pointer text-red-700" type="submit">
-            Reject
-          </button>
+          <SubmitButton classes="text-red-700">Reject</SubmitButton>
         </Form>
       </div>
     </div>
