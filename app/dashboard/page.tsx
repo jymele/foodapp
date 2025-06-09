@@ -31,13 +31,24 @@ export default async function DashboardPage() {
 
   console.log(meals);
 
-  const today = new Date();
+  const date = new Date();
+  // Convert the date to the same timezone as the database date
+  const today = new Date(
+    Date.UTC(
+      date.getUTCFullYear(),
+      date.getUTCMonth(),
+      date.getUTCDate(),
+      0,
+      0,
+      0,
+      0
+    )
+  );
 
-  console.log(today);
+  console.log("day", today);
 
   const todaysMeals = meals.filter((meal) => {
     const mealDate = new Date(meal.date);
-    mealDate.setHours(0, 0, 0, 0);
     return mealDate.getTime() === today.getTime();
   });
 
@@ -48,7 +59,6 @@ export default async function DashboardPage() {
 
   const weeksMeals = meals.filter((meal) => {
     const mealDate = new Date(meal.date);
-    mealDate.setHours(0, 0, 0, 0);
     return mealDate >= startOfWeek && mealDate <= endOfWeek;
   });
 
