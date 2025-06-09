@@ -30,7 +30,7 @@ model Meal {
     id String @id @default(cuid())
     name String
     description String
-    date DateTime
+    date DateTime @db.Date
     household_id String
     created_by_email String
 
