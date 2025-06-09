@@ -55,7 +55,7 @@ export default async function DashboardPage() {
       <div className="mx-auto container py-2 flex flex-row-reverse mb-4">
         <Navigation session={session} />
       </div>
-      <div className="mx-auto container flex justify-between">
+      <div className="mx-auto container flex justify-between items-center">
         <div className="mb-6">
           <h1 className="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl text-slate-950">
             Dashboard
