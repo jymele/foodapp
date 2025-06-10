@@ -1,11 +1,12 @@
 "use client";
 import { useState } from "react";
 import { Meal } from "@/generated/prisma";
-import { Edit2, Trash2, Check, X } from "lucide-react";
+import { Edit2, Trash2, Check, X, LoaderCircle } from "lucide-react";
 import { formatDate } from "@/utils/date";
-import { deleteMealById, editMealById } from "@/app/dashboard/actions";
+import { editMealById } from "@/app/dashboard/actions";
 import Form from "next/form";
 import SubmitButton from "./SubmitButton";
+import { useRouter } from "next/navigation";
 
 type Props = {
   meal: Meal;
@@ -70,6 +71,22 @@ type ShowProps = {
 };
 
 function Show({ id, name, switchAction }: ShowProps) {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const deleteItem = async () => {
+    setLoading(true);
+    await fetch("api/meal/delete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id }),
+    });
+    setLoading(false);
+    router.refresh();
+  };
+
   return (
     <>
       <div className="flex gap-2 items-center">
@@ -85,13 +102,24 @@ function Show({ id, name, switchAction }: ShowProps) {
         </button>
 
         {/* Delete button */}
-        <Form action={deleteMealById}>
-          <input type="hidden" name="meal-id" value={id} />
-          <SubmitButton classes=" flex items-center justify-center rounded-lg h-8 w-8 p-0 text-red-600 hover:text-red-700 hover:bg-red-50">
-            <Trash2 className="h-4 w-4" />
-            <span className="sr-only">Delete meal</span>
-          </SubmitButton>
-        </Form>
+        <button
+          onClick={deleteItem}
+          aria-disabled={loading}
+          disabled={loading}
+          className="cursor-pointer transition duration-150 flex items-center justify-center rounded-lg h-8 w-8 p-0 text-red-600 hover:text-red-700 hover:bg-red-50"
+        >
+          {!loading ? (
+            <>
+              <Trash2 className="h-4 w-4" />
+              <span className="sr-only">Delete meal</span>
+            </>
+          ) : (
+            <>
+              <LoaderCircle className="animate-spin" />
+              <span className="sr-only">Loading...</span>
+            </>
+          )}
+        </button>
       </div>
     </>
   );
