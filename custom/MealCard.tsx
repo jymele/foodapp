@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Meal } from "@/generated/prisma";
 import { Edit2, Trash2, Check, X } from "lucide-react";
 import { formatDate } from "@/utils/date";
-import { deleteMealById } from "@/app/dashboard/actions";
+import { deleteMealById, editMealById } from "@/app/dashboard/actions";
 import Form from "next/form";
 import SubmitButton from "./SubmitButton";
 
@@ -30,14 +30,20 @@ export default function MealCard(props: Props) {
         {!isEditing ? (
           <Show
             id={meal.id}
-            name={meal.name}
+            name={editedName}
             switchAction={() => {
               setIsEditing(true);
             }}
             deleteAction={() => {}}
           />
         ) : (
-          <></>
+          <Edit
+            name={editedName}
+            id={meal.id}
+            cancelAction={() => {
+              setIsEditing(false);
+            }}
+          />
         )}
       </div>
       <div className="px-6 flex items-center gap-2">
@@ -66,7 +72,7 @@ type ShowProps = {
 function Show({ id, name, switchAction }: ShowProps) {
   return (
     <>
-      <div className="flex gap-2">
+      <div className="flex gap-2 items-center">
         <div className="flex-1">{name}</div>
 
         {/* Switch to edit button */}
@@ -86,6 +92,45 @@ function Show({ id, name, switchAction }: ShowProps) {
             <span className="sr-only">Delete meal</span>
           </SubmitButton>
         </Form>
+      </div>
+    </>
+  );
+}
+
+type EditProps = {
+  id: string;
+  name: string;
+  cancelAction: () => void;
+};
+
+function Edit({ id, name, cancelAction }: EditProps) {
+  return (
+    <>
+      <div className="flex gap-2 items-center">
+        <Form action={editMealById} className="flex-1 flex gap-2 items-center">
+          <input type="hidden" value={id} name="meal-id" />
+          <input
+            type="text"
+            defaultValue={name}
+            name="meal-name"
+            className="flex-1"
+          />
+
+          {/* Edit button */}
+          <SubmitButton classes="flex items-center justify-center rounded-lg h-8 w-8 p-0 text-green-600 hover:text-green-700 hover:bg-green-50">
+            <Check className="h-4 w-4" />
+            <span className="sr-only">Cancel meal editting</span>
+          </SubmitButton>
+        </Form>
+
+        {/* Switch to edit button */}
+        <button
+          className="transition duration-150 cursor-pointer flex items-center justify-center rounded-lg h-8 w-8 p-0 text-slate-600 hover:text-slate-700 hover:bg-slate-50"
+          onClick={cancelAction}
+        >
+          <X className="h-4 w-4" />
+          <span className="sr-only">Cancel meal edit</span>
+        </button>
       </div>
     </>
   );

@@ -15,3 +15,8 @@ export async function deleteMealById(formdata: FormData) {
 
   revalidatePath("/dashboard");
 }
+
+export async function editMealById(formdata: FormData) {
+  const mealId = formdata.get("meal-id");
+  const mealName = formdata.get("meal-name");
+}
