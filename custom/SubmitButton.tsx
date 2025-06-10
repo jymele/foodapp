@@ -16,11 +16,7 @@ export default function SubmitButton({ classes, children }: Props) {
       className={`transition duration-150 cursor-pointer ` + classes}
       disabled={pending}
     >
-      {pending ? (
-        <LoaderCircle className="animate-spin text-slate-400" />
-      ) : (
-        children
-      )}
+      {pending ? <LoaderCircle className="animate-spin" /> : children}
     </button>
   );
 }
