@@ -17,7 +17,7 @@ export default function MealCard(props: Props) {
   return (
     <div
       data-slot="card"
-      className="bg-card text-card-foreground flex flex-col gap-3 rounded-xl py-6 shadow-sm bg-white"
+      className="bg-card  flex flex-col gap-3 rounded-xl py-5 shadow-sm"
     >
       <div
         data-slot="card-title"
