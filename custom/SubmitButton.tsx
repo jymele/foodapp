@@ -1,6 +1,7 @@
 "use client";
 import { useFormStatus } from "react-dom";
 import { LoaderCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   classes?: string;
@@ -11,9 +12,9 @@ export default function SubmitButton({ classes, children }: Props) {
   const { pending } = useFormStatus();
 
   return (
-    <button
+    <Button
       type="submit"
-      className={`transition duration-150 cursor-pointer ` + classes}
+      className={`cursor-pointer ` + classes}
       disabled={pending}
     >
       {pending ? (
@@ -24,6 +25,6 @@ export default function SubmitButton({ classes, children }: Props) {
       ) : (
         children
       )}
-    </button>
+    </Button>
   );
 }

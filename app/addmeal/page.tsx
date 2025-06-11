@@ -36,7 +36,7 @@ export default async function AddMealPage() {
           placeholder="Description"
           className="input"
         />
-        <SubmitButton classes="px-3.5 py-2.5 rounded-lg shadow-sm bg-slate-900 text-slate-50 flex items-center gap-2 justify-center hover:bg-slate-700 disabled:bg-slate-500">
+        <SubmitButton classes="">
           <div>Send</div>
         </SubmitButton>
       </Form>
