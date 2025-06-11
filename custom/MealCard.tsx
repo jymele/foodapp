@@ -17,11 +17,11 @@ export default function MealCard(props: Props) {
   return (
     <div
       data-slot="card"
-      className="bg-card text-card-foreground flex flex-col gap-6 rounded-xl py-6 shadow-sm bg-white"
+      className="bg-card text-card-foreground flex flex-col gap-3 rounded-xl py-6 shadow-sm bg-white"
     >
       <div
         data-slot="card-title"
-        className="px-6 pb-6 leading-none font-semibold"
+        className="px-6 pb-2 leading-none font-semibold"
       >
         {!isEditing ? (
           <Show
