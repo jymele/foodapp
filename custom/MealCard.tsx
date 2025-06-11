@@ -14,8 +14,6 @@ export default function MealCard(props: Props) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedName, setEditedName] = useState(meal.name);
 
-  // function switchAction(id: string) {}
-
   return (
     <div
       data-slot="card"

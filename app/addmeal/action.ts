@@ -20,15 +20,11 @@ export default async function submitMeal(formdata: FormData) {
     return;
   }
 
-  // Add the meal to the database
-  // Parse the date and set time to noon (12:00:00)
-  const mealDate = new Date(date);
-
   await prisma.meal.create({
     data: {
       name: mealName,
       // type: mealType,
-      date: mealDate,
+      date: new Date(date),
       description: description,
       household_id: userHousehold.household_id,
       created_by_email: userEmail,
