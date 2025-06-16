@@ -18,7 +18,7 @@ export default function MealList({ meals }: Props) {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.3, staggerChildren: 0.1 }}
+        transition={{ duration: 0.3, staggerChildren: 0.2, ease: "easeInOut" }}
         className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"
       >
         {meals.map((meal) => (

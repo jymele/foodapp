@@ -4,6 +4,13 @@ import { Meal } from "@/generated/prisma";
 import { Edit2, Trash2, Check, X, LoaderCircle } from "lucide-react";
 import { formatDate } from "@/utils/date";
 import { useRouter } from "next/navigation";
+import { motion } from "motion/react";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 type Props = {
   meal: Meal;
@@ -15,47 +22,55 @@ export default function MealCard(props: Props) {
   const [editedName, setEditedName] = useState(meal.name);
 
   return (
-    <div
-      data-slot="card"
-      className="bg-card  flex flex-col gap-3 rounded-xl py-5 shadow-sm"
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      // data-slot="card"
+      // className="bg-card  flex flex-col gap-3 rounded-xl py-5 shadow-sm"
     >
-      <div
-        data-slot="card-title"
-        className="px-6 pb-2 leading-none font-semibold"
-      >
-        {!isEditing ? (
-          <Show
-            id={meal.id}
-            name={editedName}
-            switchAction={() => {
-              setIsEditing(true);
-            }}
-            deleteAction={() => {}}
-          />
-        ) : (
-          <Edit
-            name={editedName}
-            id={meal.id}
-            cancelAction={() => {
-              setIsEditing(false);
-            }}
-            changeName={setEditedName}
-          />
-        )}
-      </div>
-      <div className="px-6 flex items-center gap-2">
-        <span className="text-sm text-muted-foreground">Added by: </span>
-        <span className="inline-flex items-center justify-center rounded-full border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden border-transparent bg-slate-200 text-slate-900 [a&]:hover:bg-secondary/90">
-          {meal.created_by_email}
-        </span>
-      </div>
-      <div className="px-6 flex items-center gap-2">
-        <span className="text-sm text-muted-foreground">Scheduled for: </span>
-        <span className="text-sm font-medium text-foreground">
-          {formatDate(meal.date.toISOString())}
-        </span>
-      </div>
-    </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            {!isEditing ? (
+              <Show
+                id={meal.id}
+                name={editedName}
+                switchAction={() => {
+                  setIsEditing(true);
+                }}
+                deleteAction={() => {}}
+              />
+            ) : (
+              <Edit
+                name={editedName}
+                id={meal.id}
+                cancelAction={() => {
+                  setIsEditing(false);
+                }}
+                changeName={setEditedName}
+              />
+            )}
+          </CardTitle>
+          <CardDescription className="flex flex-col gap-2">
+            <div>
+              <span className="text-sm text-muted-foreground">Added by: </span>
+              <span className="inline-flex items-center justify-center rounded-full border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden border-transparent bg-slate-200 text-slate-900 [a&]:hover:bg-secondary/90">
+                {meal.created_by_email}
+              </span>
+            </div>
+            <div>
+              <span className="text-sm text-muted-foreground">
+                Scheduled for:{" "}
+              </span>
+              <span className="text-sm font-medium text-foreground">
+                {formatDate(meal.date.toISOString())}
+              </span>
+            </div>
+          </CardDescription>
+        </CardHeader>
+      </Card>
+    </motion.div>
   );
 }
 
