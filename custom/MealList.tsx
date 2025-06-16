@@ -1,6 +1,7 @@
 "use client";
 import { Meal } from "@/generated/prisma";
 import MealCard from "./MealCard";
+import { motion } from "motion/react";
 
 type Props = {
   meals: Meal[];
@@ -13,11 +14,17 @@ export default function MealList({ meals }: Props) {
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.3, staggerChildren: 0.1 }}
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"
+      >
         {meals.map((meal) => (
           <MealCard key={meal.id} meal={meal} />
         ))}
-      </div>
+      </motion.div>
     </>
   );
 }
