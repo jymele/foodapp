@@ -3,6 +3,8 @@ import submitMeal from "./action";
 import SubmitButton from "@/custom/SubmitButton";
 import { auth } from "@/auth";
 import appSettings from "@/appsettings";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 export default async function AddMealPage() {
   const session = await auth();
@@ -11,7 +13,7 @@ export default async function AddMealPage() {
     <div className="page">
       <Form action={submitMeal} className="flex flex-col gap-4 p-4">
         <h1 className="text-lg font-semibold mb-4">Add Meal</h1>
-        <input
+        <Input
           name="meal-name"
           placeholder="Meal Name"
           className="input"
@@ -31,7 +33,7 @@ export default async function AddMealPage() {
           value={session!.user!.email as string}
         />
 
-        <textarea
+        <Textarea
           name="description"
           placeholder="Description"
           className="input"
