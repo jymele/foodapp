@@ -14,19 +14,19 @@ import {
 export default async function DashboardPage() {
   const session = await auth();
 
-  checkIfLoggedIn();
+  // checkIfLoggedIn();
 
   const prisma = new PrismaClient();
   const userHousehold = await prisma.userHousehold.findFirst({
     where: { user_email: session!.user!.email as string },
   });
 
-  if (!userHousehold) {
-    redirect("/new-household");
-  }
+  // if (!userHousehold) {
+  //   redirect("/new-household");
+  // }
 
   const household = await prisma.household.findUnique({
-    where: { id: userHousehold.household_id },
+    where: { id: userHousehold!.household_id },
   });
 
   const date = new Date();

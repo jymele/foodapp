@@ -11,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 
 type Props = {
   meal: Meal;
@@ -166,7 +167,7 @@ function Edit({ id, name, cancelAction, changeName }: EditProps) {
       <div className="flex gap-2 items-center">
         <div className="flex-1 flex gap-2 items-center">
           <input type="hidden" value={id} name="meal-id" />
-          <input
+          <Input
             type="text"
             onChange={(e) => setMealName(e.target.value)}
             defaultValue={mealname}
