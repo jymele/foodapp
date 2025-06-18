@@ -5,6 +5,7 @@ import { Edit2, Trash2, Check, X, LoaderCircle } from "lucide-react";
 import { formatDate } from "@/utils/date";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
+import { slideInVariants } from "@/utils/animations";
 import {
   Card,
   CardDescription,
@@ -15,20 +16,20 @@ import { Input } from "@/components/ui/input";
 
 type Props = {
   meal: Meal;
+  index?: number; // Optional index prop for future use
 };
 
 export default function MealCard(props: Props) {
-  const { meal } = props;
+  const { meal, index } = props;
   const [isEditing, setIsEditing] = useState(false);
   const [editedName, setEditedName] = useState(meal.name);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      // data-slot="card"
-      // className="bg-card  flex flex-col gap-3 rounded-xl py-5 shadow-sm"
+      variants={slideInVariants}
+      initial="initial"
+      animate="animate"
+      custom={index ? index : 0}
     >
       <Card>
         <CardHeader>
