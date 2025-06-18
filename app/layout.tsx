@@ -5,6 +5,7 @@ import "./main.css";
 import appSettings from "@/appsettings";
 import checkIfHouseholdIsAssigned from "@/utils/checkIfHouseholdIsAssigned";
 import checkIfLoggedIn from "@/utils/checkIfLoggedIn";
+import IsOnlinePopup from "@/custom/isOnline";
 
 export const metadata: Metadata = {
   title: appSettings.appName,
@@ -29,7 +30,10 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${geist.className}`}>{children}</body>
+      <body className={`${geist.className}`}>
+        {/* <IsOnlinePopup /> */}
+        {children}
+      </body>
     </html>
   );
 }
