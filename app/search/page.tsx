@@ -1,10 +1,34 @@
-export default function SearchPage() {
+import SearchPage from "./client";
+import { auth } from "@/auth";
+import { PrismaClient } from "@/generated/prisma";
+import { getUTCDate } from "@/utils/date";
+
+export default async function Page() {
+  const session = await auth();
+
+  const prisma = new PrismaClient();
+  const userHousehold = await prisma.userHousehold.findFirst({
+    where: { user_email: session!.user!.email as string },
+  });
+
+  const household = await prisma.household.findUnique({
+    where: { id: userHousehold!.household_id },
+  });
+
+  const date = new Date();
+  const today = getUTCDate(date);
+
+  const todaysMeals = await prisma.meal.findMany({
+    where: { household_id: household!.id, date: today },
+  });
+
   return (
     <div className="page">
       <h1 className="text-lg font-semibold mb-4">Search</h1>
-      <p className="text-muted-foreground">
+      {/* <p className="text-muted-foreground">
         This page is under construction. Please check back later.
-      </p>
+      </p> */}
+      <SearchPage />
     </div>
   );
 }

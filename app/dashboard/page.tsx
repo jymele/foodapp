@@ -1,7 +1,5 @@
 import { auth } from "@/auth";
-import { redirect } from "next/navigation";
 import { PrismaClient } from "@/generated/prisma";
-import checkIfLoggedIn from "@/utils/checkIfLoggedIn";
 import DashboardClient from "./client";
 import Navigation from "@/custom/Navigation";
 import Link from "next/link";

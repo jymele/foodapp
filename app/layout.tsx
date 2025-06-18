@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
+import "./main.css";
 import appSettings from "@/appsettings";
 import checkIfHouseholdIsAssigned from "@/utils/checkIfHouseholdIsAssigned";
 import checkIfLoggedIn from "@/utils/checkIfLoggedIn";
