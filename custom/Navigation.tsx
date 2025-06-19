@@ -29,7 +29,7 @@ export default function Navigation({ session }: { session: Session | null }) {
             animate={{ height: "auto", opacity: 1, y: 0 }}
             exit={{ height: 0, opacity: 0, y: -20 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
-            className="bg-white overflow-hidden absolute mt-3 shadow-sm rounded-lg min-w-max right-0"
+            className="bg-white overflow-hidden absolute mt-3 shadow-sm rounded-lg min-w-max right-0 z-10"
           >
             <div className="p-3 flex items-center flex-between gap-4">
               <div>

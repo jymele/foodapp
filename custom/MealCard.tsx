@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { formatDate } from "@/utils/date";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   meal: Meal;
@@ -108,20 +109,22 @@ function Show({ id, name, switchAction }: ShowProps) {
         <div className="flex-1">{name}</div>
 
         {/* Switch to edit button */}
-        <button
-          className="transition duration-150 cursor-pointer flex items-center justify-center rounded-lg h-8 w-8 p-0 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+        <Button
+          variant="ghost"
+          className="h-8 w-8 p-0 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
           onClick={switchAction}
         >
           <Edit2 className="h-4 w-4" />
           <span className="sr-only">Edit meal name</span>
-        </button>
+        </Button>
 
         {/* Delete button */}
-        <button
+        <Button
           onClick={deleteItem}
           aria-disabled={loading}
           disabled={loading}
-          className="cursor-pointer transition duration-150 flex items-center justify-center rounded-lg h-8 w-8 p-0 text-red-600 hover:text-red-700 hover:bg-red-50"
+          variant={"ghost"}
+          className="h-8 w-8 p-0 text-red-600 hover:text-red-700 hover:bg-red-50"
         >
           {!loading ? (
             <>
@@ -134,7 +137,7 @@ function Show({ id, name, switchAction }: ShowProps) {
               <span className="sr-only">Loading...</span>
             </>
           )}
-        </button>
+        </Button>
       </div>
     </>
   );
@@ -179,25 +182,27 @@ function Edit({ id, name, cancelAction, changeName }: EditProps) {
           />
 
           {/* Edit button */}
-          <button
+          <Button
+            variant="ghost"
             onClick={updateItem}
             aria-disabled={loading}
             disabled={loading}
-            className="cursor-pointer transition duration-150 flex items-center justify-center rounded-lg h-8 w-8 p-0 text-green-600 hover:text-green-700 hover:bg-green-50"
+            className="h-8 w-8 p-0 text-green-600 hover:text-green-700 hover:bg-green-50"
           >
             <Check className="h-4 w-4" />
             <span className="sr-only">Cancel meal editting</span>
-          </button>
+          </Button>
         </div>
 
         {/* Switch to edit button */}
-        <button
-          className="transition duration-150 cursor-pointer flex items-center justify-center rounded-lg h-8 w-8 p-0 text-slate-600 hover:text-slate-700 hover:bg-slate-50"
+        <Button
+          variant={"ghost"}
+          className="h-8 w-8 p-0 text-slate-600 hover:text-slate-700 hover:bg-slate-50"
           onClick={cancelAction}
         >
           <X className="h-4 w-4" />
           <span className="sr-only">Cancel meal edit</span>
-        </button>
+        </Button>
       </div>
     </>
   );
