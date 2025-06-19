@@ -1,5 +1,5 @@
 @import "tailwindcss";
 
 .tabtrigger {
-  @apply transition duration-200 [&[aria-selected=true]]:bg-white px-3 py-2 rounded-md [&[aria-selected=true]]:shadow-sm [&[aria-selected=true]]:text-slate-800;
+  @apply transition duration-200 cursor-pointer [&[aria-selected=true]]:bg-white px-3 py-2 rounded-md [&[aria-selected=true]]:shadow-sm [&[aria-selected=true]]:text-slate-800 [&[aria-selected=true]]:cursor-default;
 }
