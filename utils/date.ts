@@ -29,13 +29,5 @@ export function getEndofWeekFromDate(date: Date): Date {
 }
 
 export const formatDate = (date: Date) => {
-  // const date = new Date(dateString);
-  // return date.toLocaleDateString("en-US", {
-  //   weekday: "long",
-  //   year: "numeric",
-  //   month: "long",
-  //   day: "numeric",
-  // });
-
   return date.toUTCString().split(" ").slice(0, 4).join(" ");
 };

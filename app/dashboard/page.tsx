@@ -1,27 +1,17 @@
 import { auth } from "@/auth";
 import { PrismaClient } from "@/generated/prisma";
-import DashboardClient from "./client";
 import Navigation from "@/custom/Navigation";
 import Link from "next/link";
-import {
-  getUTCDate,
-  getStartofWeekFromDate,
-  getEndofWeekFromDate,
-} from "@/utils/date";
+import { getUTCDate } from "@/utils/date";
+import MealList from "@/custom/MealList";
 
 export default async function DashboardPage() {
   const session = await auth();
-
-  // checkIfLoggedIn();
 
   const prisma = new PrismaClient();
   const userHousehold = await prisma.userHousehold.findFirst({
     where: { user_email: session!.user!.email as string },
   });
-
-  // if (!userHousehold) {
-  //   redirect("/new-household");
-  // }
 
   const household = await prisma.household.findUnique({
     where: { id: userHousehold!.household_id },
@@ -33,22 +23,6 @@ export default async function DashboardPage() {
 
   const todaysMeals = await prisma.meal.findMany({
     where: { household_id: household!.id, date: today },
-  });
-
-  const startOfWeek = getStartofWeekFromDate(today);
-  const endOfWeek = getEndofWeekFromDate(today);
-
-  const weeksMeals = await prisma.meal.findMany({
-    where: {
-      household_id: household!.id,
-      date: {
-        gte: startOfWeek,
-        lte: endOfWeek,
-      },
-    },
-    orderBy: {
-      date: "asc",
-    },
   });
 
   return (
@@ -75,7 +49,8 @@ export default async function DashboardPage() {
         </div>
       </div>
       <div>
-        <DashboardClient todaysMeals={todaysMeals} weeksMeals={weeksMeals} />
+        <div className="mb-4 text-center">Today</div>
+        <MealList meals={todaysMeals} />
       </div>
     </div>
   );
