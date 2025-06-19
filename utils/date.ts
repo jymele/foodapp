@@ -1,19 +1,3 @@
-export function getUTCDate(date: Date): Date {
-  const utcDate = new Date(
-    Date.UTC(
-      date.getUTCFullYear(),
-      date.getUTCMonth(),
-      date.getUTCDate(),
-      0,
-      0,
-      0,
-      0
-    )
-  );
-
-  return utcDate;
-}
-
 export function getStartofWeekFromDate(date: Date): Date {
   const startOfWeek = new Date(date);
   startOfWeek.setDate(date.getDate() - date.getDay());

@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import { PrismaClient } from "@/generated/prisma";
 import Navigation from "@/custom/Navigation";
 import Link from "next/link";
-import { getUTCDate } from "@/utils/date";
+import { formatDate } from "@/utils/date";
 import MealList from "@/custom/MealList";
 import { Button } from "@/components/ui/button";
 import { Plus, Search } from "lucide-react";
@@ -21,10 +21,10 @@ export default async function DashboardPage() {
 
   const date = new Date();
   // Convert the date to the same timezone as the database date
-  const today = getUTCDate(date);
+  const today = formatDate(date);
 
   const todaysMeals = await prisma.meal.findMany({
-    where: { household_id: household!.id, date: today },
+    where: { household_id: household!.id, date: date },
   });
 
   return (
@@ -32,13 +32,13 @@ export default async function DashboardPage() {
       <div className="mx-auto container py-2 flex flex-row-reverse mb-4">
         <Navigation session={session} />
       </div>
-      <div className="mx-auto container flex justify-between items-center">
-        <div className="mb-6">
+      <div className="mx-auto container flex justify-between items-center mb-6">
+        <div>
           <h1 className="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl text-slate-950">
             Dashboard
           </h1>
           <p className="!text-muted-foreground text-[1.05rem] text-balance sm:text-base">
-            {new Date().toDateString()}
+            {today}
           </p>
         </div>
         <div className="flex gap-4">

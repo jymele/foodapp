@@ -1,11 +1,7 @@
 import SearchPage from "./client";
 import { auth } from "@/auth";
 import { PrismaClient } from "@/generated/prisma";
-import {
-  getEndofWeekFromDate,
-  getStartofWeekFromDate,
-  getUTCDate,
-} from "@/utils/date";
+import { getEndofWeekFromDate, getStartofWeekFromDate } from "@/utils/date";
 
 export default async function Page() {
   const session = await auth();
@@ -19,7 +15,7 @@ export default async function Page() {
     where: { id: userHousehold!.household_id },
   });
   const date = new Date();
-  const today = getUTCDate(date);
+  const today = date;
 
   const startOfWeek = getStartofWeekFromDate(today);
   const endOfWeek = getEndofWeekFromDate(today);
