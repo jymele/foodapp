@@ -22,18 +22,20 @@ export function getStartofWeekFromDate(date: Date): Date {
 }
 
 export function getEndofWeekFromDate(date: Date): Date {
-  let startOfWeek = getStartofWeekFromDate(date);
+  const startOfWeek = getStartofWeekFromDate(date);
   const endOfWeek = new Date(startOfWeek);
   endOfWeek.setDate(startOfWeek.getDate() + 6);
   return endOfWeek;
 }
 
-export const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+export const formatDate = (date: Date) => {
+  // const date = new Date(dateString);
+  // return date.toLocaleDateString("en-US", {
+  //   weekday: "long",
+  //   year: "numeric",
+  //   month: "long",
+  //   day: "numeric",
+  // });
+
+  return date.toUTCString().split(" ").slice(0, 4).join(" ");
 };

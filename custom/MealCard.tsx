@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { Meal } from "@/generated/prisma";
 import { Edit2, Trash2, Check, X, LoaderCircle } from "lucide-react";
-import { formatDate } from "@/utils/date";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { slideInVariants } from "@/utils/animations";
@@ -13,6 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { formatDate } from "@/utils/date";
 
 type Props = {
   meal: Meal;
@@ -23,6 +23,8 @@ export default function MealCard(props: Props) {
   const { meal, index } = props;
   const [isEditing, setIsEditing] = useState(false);
   const [editedName, setEditedName] = useState(meal.name);
+
+  // console.log(meal.date);
 
   return (
     <motion.div
@@ -66,7 +68,7 @@ export default function MealCard(props: Props) {
                 Scheduled for:{" "}
               </span>
               <span className="text-sm font-medium text-foreground">
-                {formatDate(meal.date.toISOString())}
+                {formatDate(meal.date)}
               </span>
             </div>
           </CardDescription>
