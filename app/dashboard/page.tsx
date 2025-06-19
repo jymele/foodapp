@@ -4,6 +4,8 @@ import Navigation from "@/custom/Navigation";
 import Link from "next/link";
 import { getUTCDate } from "@/utils/date";
 import MealList from "@/custom/MealList";
+import { Button } from "@/components/ui/button";
+import { Plus, Search } from "lucide-react";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -39,13 +41,17 @@ export default async function DashboardPage() {
             {new Date().toDateString()}
           </p>
         </div>
-        <div>
-          <Link
-            className="px-3.5 py-2.5 rounded-lg shadow-sm bg-white"
-            href="/addmeal"
-          >
-            Add meal
-          </Link>
+        <div className="flex gap-4">
+          <Button variant="outline" asChild>
+            <Link href="/addmeal">
+              <Plus className="h-4 w-4" />
+            </Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search">
+              <Search className="h-4 w-4" />
+            </Link>
+          </Button>
         </div>
       </div>
       <div>

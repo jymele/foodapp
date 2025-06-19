@@ -233,7 +233,7 @@ body {
     @apply bg-background text-foreground;
   }
 
-  button {
+  /* button {
     @apply cursor-pointer;
-  }
+  } */
 }

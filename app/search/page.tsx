@@ -21,10 +21,6 @@ export default async function Page() {
   const date = new Date();
   const today = getUTCDate(date);
 
-  // const todaysMeals = await prisma.meal.findMany({
-  //   where: { household_id: household!.id, date: today },
-  // });
-
   const startOfWeek = getStartofWeekFromDate(today);
   const endOfWeek = getEndofWeekFromDate(today);
 
@@ -44,9 +40,6 @@ export default async function Page() {
   return (
     <div className="page">
       <h1 className="text-lg font-semibold mb-4">Search</h1>
-      {/* <p className="text-muted-foreground">
-        This page is under construction. Please check back later.
-      </p> */}
       <SearchPage weekMeals={weeksMeals} />
     </div>
   );
