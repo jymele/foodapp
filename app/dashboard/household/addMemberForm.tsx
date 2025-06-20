@@ -21,7 +21,7 @@ export default async function AddMemberForm({ email }: Props) {
   return (
     <Form
       action={addMember}
-      className="bg-white flex items-center gap-4  rounded-lg shadow-sm overflow-hidden"
+      className="bg-white flex items-center gap-4 pr-2 rounded-lg shadow-sm overflow-hidden"
     >
       <input
         type="email"
@@ -36,9 +36,7 @@ export default async function AddMemberForm({ email }: Props) {
         value={userHousehold!.household_id}
       />
       <input type="hidden" name="inviter_email" value={email as string} />
-      <SubmitButton classes="rounded-lg px-3.5 py-2.5 bg-white">
-        Add
-      </SubmitButton>
+      <SubmitButton variant="ghost">Add</SubmitButton>
     </Form>
   );
 }
