@@ -14,7 +14,7 @@ export default function DesktopNav() {
   return (
     <div className="hidden md:block p-1">
       <div className="flex flex-col h-full">
-        <div className="w-48 h-48 bg-teal-800 rounded-lg text-white flex items-center justify-center">
+        <div className="w-48 h-48 bg-teal-800 rounded-lg text-2xl text-white flex items-center justify-center">
           Meal App
         </div>
         <ul className="space-y-1 flex-1 pt-1">
@@ -24,7 +24,7 @@ export default function DesktopNav() {
                 href={link.href}
                 className={clsx(
                   "transition duration-200 block px-4 py-3 text-sm text-slate-950 hover:bg-teal-800/10 hover:text-teal-950 rounded-lg",
-                  pathname === link.href && "!bg-teal-800 !text-teal-50"
+                  pathname === link.href && "!bg-teal-700 !text-teal-50"
                 )}
               >
                 <div className="flex items-center gap-2">
