@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
-import { LogOut, LoaderCircle, Menu, Settings, House } from "lucide-react";
+import { LogOut, LoaderCircle, Menu, House } from "lucide-react";
 
 export default function Navigation({ session }: { session: Session | null }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +13,7 @@ export default function Navigation({ session }: { session: Session | null }) {
   const userImage = session?.user?.image || null;
 
   return (
-    <div className="relative">
+    <div className="block md:hidden relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle Menu"
@@ -56,17 +56,7 @@ export default function Navigation({ session }: { session: Session | null }) {
                     </div>
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="/settings"
-                    className="block px-4 py-2 text-sm text-slate-950 hover:bg-slate-100 rounded-lg"
-                  >
-                    <div className="flex items-center justify-between gap-6">
-                      <Settings className="w-4 h-4" />
-                      Settings
-                    </div>
-                  </Link>
-                </li>
+
                 <li>
                   <button
                     className="block px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg w-full cursor-pointer"
