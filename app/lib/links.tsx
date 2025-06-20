@@ -13,12 +13,12 @@ export const links: LinkType[] = [
     icon: <Gauge className="w-6 h-6" />,
   },
   {
-    href: "#",
+    href: "/dashboard/profile",
     label: "Profile",
     icon: <UserRoundPen className="w-6 h-6" />,
   },
   {
-    href: "dashboard/household",
+    href: "/dashboard/household",
     label: "Household",
     icon: <House className="w-6 h-6" />,
   },

@@ -5,16 +5,18 @@ import { Button } from "@/components/ui/button";
 
 type Props = {
   classes?: string;
+  variant?: "default" | "outline" | "ghost" | "link";
   children: Readonly<React.ReactNode>;
 };
 
-export default function SubmitButton({ classes, children }: Props) {
+export default function SubmitButton({ classes, children, variant }: Props) {
   const { pending } = useFormStatus();
 
   return (
     <Button
       type="submit"
-      className={`cursor-pointer ` + classes}
+      variant={variant ? variant : "default"}
+      className={classes}
       disabled={pending}
     >
       {pending ? (

@@ -30,7 +30,7 @@ export default function MembersBlock({ members, admin }: Props) {
             {admin && !member.admin && (
               <Form action={deleteMember} className="">
                 <input type="hidden" name="member-id" value={member.id} />
-                <SubmitButton classes="text-red-700">
+                <SubmitButton variant="ghost" classes="text-red-700">
                   <span className="sr-only">Remove member</span>
                   Remove member
                 </SubmitButton>
