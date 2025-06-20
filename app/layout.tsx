@@ -3,8 +3,6 @@ import { Geist } from "next/font/google";
 import "./globals.css";
 import "./main.css";
 import appSettings from "@/appsettings";
-import checkIfHouseholdIsAssigned from "@/utils/checkIfHouseholdIsAssigned";
-import checkIfLoggedIn from "@/utils/checkIfLoggedIn";
 
 export const metadata: Metadata = {
   title: appSettings.appName,
@@ -24,9 +22,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  checkIfLoggedIn();
-  checkIfHouseholdIsAssigned();
-
   return (
     <html lang="en">
       <body className={`${geist.className}`}>{children}</body>

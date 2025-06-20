@@ -9,6 +9,17 @@ import InvitationList from "./invitation-list";
 
 export default async function NewRoom() {
   const session = await auth();
+
+  if (!session) {
+    // If the user is not logged in, redirect to the home page
+    return (
+      <div className="mt-14 flex items-center justify-center flex-col container mx-auto p-2">
+        <h1 className="mb-4">You need to be logged in to create a household</h1>
+        <Link href="/">Go to Home</Link>
+      </div>
+    );
+  }
+
   const prisma = new PrismaClient();
 
   const households = await prisma.userHousehold.findMany({

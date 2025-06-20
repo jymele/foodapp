@@ -4,11 +4,10 @@ import Link from "next/link";
 import { links } from "@/app/lib/links";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
-import { Session } from "next-auth";
 import { useState } from "react";
 import { signOut } from "next-auth/react";
 
-export default function DesktopNav({ session }: { session: Session | null }) {
+export default function DesktopNav() {
   const pathname = usePathname();
   const [loading, setLoading] = useState(false);
 
