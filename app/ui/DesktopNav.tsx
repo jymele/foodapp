@@ -1,8 +1,17 @@
-import { Power } from "lucide-react";
+"use client";
+import { Power, LoaderCircle } from "lucide-react";
 import Link from "next/link";
 import { links } from "@/app/lib/links";
+import clsx from "clsx";
+import { usePathname } from "next/navigation";
+import { Session } from "next-auth";
+import { useState } from "react";
+import { signOut } from "next-auth/react";
 
-export default function DesktopNav() {
+export default function DesktopNav({ session }: { session: Session | null }) {
+  const pathname = usePathname();
+  const [loading, setLoading] = useState(false);
+
   return (
     <div className="hidden md:block">
       <div className="flex flex-col h-full">
@@ -14,7 +23,10 @@ export default function DesktopNav() {
             <li key={index}>
               <Link
                 href={link.href}
-                className="block px-4 py-3 text-sm text-slate-950 hover:bg-teal-800/10 hover:text-teal-950 rounded-lg"
+                className={clsx(
+                  "block px-4 py-3 text-sm text-slate-950 hover:bg-teal-800/10 hover:text-teal-950 rounded-r-lg",
+                  pathname === link.href && "bg-teal-800 text-teal-50"
+                )}
               >
                 <div className="flex items-center gap-2">
                   {link.icon}
@@ -25,10 +37,22 @@ export default function DesktopNav() {
           ))}
         </ul>
         <div>
-          <Link href="/logout" className="px-4 py-3 flex items-center gap-2">
-            <Power className="w-6 h-6" />
+          <button
+            aria-disabled={loading}
+            disabled={loading}
+            className="cursor-pointer px-4 py-3 flex items-center gap-2"
+            onClick={() => {
+              setLoading(true);
+              signOut({ callbackUrl: "/" });
+            }}
+          >
+            {loading ? (
+              <LoaderCircle className="animate-spin w-6 h-6" />
+            ) : (
+              <Power className="w-6 h-6" />
+            )}
             Logout
-          </Link>
+          </button>
         </div>
       </div>
     </div>
