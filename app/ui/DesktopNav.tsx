@@ -12,19 +12,19 @@ export default function DesktopNav() {
   const [loading, setLoading] = useState(false);
 
   return (
-    <div className="hidden md:block">
+    <div className="hidden md:block p-1">
       <div className="flex flex-col h-full">
-        <div className="w-48 h-48 primary rounded-br-2xl text-white flex items-center justify-center">
+        <div className="w-48 h-48 bg-teal-800 rounded-lg text-white flex items-center justify-center">
           Meal App
         </div>
-        <ul className="space-y-2 flex-1 pt-4">
+        <ul className="space-y-1 flex-1 pt-1">
           {links.map((link, index) => (
             <li key={index}>
               <Link
                 href={link.href}
                 className={clsx(
-                  "block px-4 py-3 text-sm text-slate-950 hover:bg-teal-800/10 hover:text-teal-950 rounded-r-lg",
-                  pathname === link.href && "bg-teal-800 text-teal-50"
+                  "transition duration-200 block px-4 py-3 text-sm text-slate-950 hover:bg-teal-800/10 hover:text-teal-950 rounded-lg",
+                  pathname === link.href && "!bg-teal-800 !text-teal-50"
                 )}
               >
                 <div className="flex items-center gap-2">
@@ -39,7 +39,7 @@ export default function DesktopNav() {
           <button
             aria-disabled={loading}
             disabled={loading}
-            className="cursor-pointer px-4 py-3 flex items-center gap-2"
+            className="cursor-pointer px-4 py-3 flex items-center gap-2 rounded-lg"
             onClick={() => {
               setLoading(true);
               signOut({ callbackUrl: "/" });
