@@ -56,7 +56,7 @@ export default async function DashboardPage() {
         </div>
       </div>
       <div>
-        <AddMealForm />
+        <AddMealForm email={session?.user!.email!} />
         <div className="mb-4 text-center">Today</div>
         <MealList meals={todaysMeals} />
       </div>
