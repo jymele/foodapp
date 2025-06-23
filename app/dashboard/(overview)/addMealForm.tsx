@@ -21,14 +21,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { format } from "date-fns";
+import { format, set } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 
 const formSchema = z.object({
   mealName: z.string().min(3, "Meal name is required"),
-  userEmail: z.string().email("Invalid email address"),
+  userEmail: z.string().email("Did not recognize your email address"),
   mealDate: z.date({ required_error: "Please select a date" }),
 });
 
@@ -46,8 +46,20 @@ export default function AddMealForm({ email }: formProps) {
     },
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log("Form submitted with data:", data);
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    const response = await fetch("/api/meal/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        mealName: data.mealName,
+        userEmail: data.userEmail,
+        mealDate: data.mealDate.toISOString(),
+      }),
+    });
+
+    console.log("Response from server:", response);
   }
 
   return (
@@ -81,7 +93,6 @@ export default function AddMealForm({ email }: formProps) {
             name="userEmail"
             render={({ field }) => (
               <FormItem>
-                {/* <FormLabel>Date</FormLabel> */}
                 <FormControl>
                   <Input type="hidden" {...field} />
                 </FormControl>
