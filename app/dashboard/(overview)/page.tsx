@@ -8,6 +8,7 @@ import MealList from "@/custom/MealList";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 import AddMealForm from "./addMealForm";
+import { revalidatePath } from "next/cache";
 
 export default async function DashboardPage() {
   const session = await auth();

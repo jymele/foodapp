@@ -24,6 +24,7 @@ import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   mealName: z.string().min(3, "Meal name is required"),
@@ -36,6 +37,7 @@ type formProps = {
 };
 
 export default function AddMealForm({ email }: formProps) {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -60,6 +62,8 @@ export default function AddMealForm({ email }: formProps) {
 
     // console.log("Response from server:", response);
     if (response.ok) {
+      router.refresh();
+      form.reset();
     } else {
       const errorData = await response.json();
       console.error("Error adding meal:", errorData.message);
