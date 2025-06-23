@@ -1,3 +1,4 @@
+"use server";
 import { auth } from "@/auth";
 import { PrismaClient } from "@/generated/prisma";
 import Navigation from "@/custom/Navigation";
@@ -5,7 +6,7 @@ import Link from "next/link";
 import { formatDate } from "@/utils/date";
 import MealList from "@/custom/MealList";
 import { Button } from "@/components/ui/button";
-import { Plus, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import AddMealForm from "./addMealForm";
 
 export default async function DashboardPage() {
@@ -43,11 +44,6 @@ export default async function DashboardPage() {
           </p>
         </div>
         <div className="flex gap-4">
-          <Button variant="outline" asChild>
-            <Link href="/addmeal">
-              <Plus className="h-4 w-4" />
-            </Link>
-          </Button>
           <Button variant="outline" asChild>
             <Link href="/search">
               <Search className="h-4 w-4" />

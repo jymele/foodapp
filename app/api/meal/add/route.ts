@@ -11,6 +11,7 @@ export async function POST(request: Request) {
 
   if (!userHousehold) {
     return Response.json({
+      ok: false,
       status: 400,
       message: "User is not assigned to any household.",
     });
@@ -27,5 +28,9 @@ export async function POST(request: Request) {
     },
   });
 
-  return Response.json({ status: 200, message: "Meal added successfully" });
+  return Response.json({
+    ok: true,
+    status: 200,
+    message: "Meal added successfully",
+  });
 }

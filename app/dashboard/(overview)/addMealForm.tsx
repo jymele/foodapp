@@ -1,5 +1,4 @@
 "use client";
-// import submitMeal from "./action";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -21,7 +20,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { format, set } from "date-fns";
+import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -59,7 +58,12 @@ export default function AddMealForm({ email }: formProps) {
       }),
     });
 
-    console.log("Response from server:", response);
+    // console.log("Response from server:", response);
+    if (response.ok) {
+    } else {
+      const errorData = await response.json();
+      console.error("Error adding meal:", errorData.message);
+    }
   }
 
   return (
