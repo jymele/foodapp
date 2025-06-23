@@ -39,7 +39,7 @@ export default function DesktopNav() {
           <button
             aria-disabled={loading}
             disabled={loading}
-            className="cursor-pointer px-4 py-3 flex items-center gap-2 rounded-lg"
+            className="transition duration-200 hover:text-red-800 cursor-pointer px-4 py-3 flex items-center gap-2 rounded-lg"
             onClick={() => {
               setLoading(true);
               signOut({ callbackUrl: "/" });

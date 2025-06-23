@@ -6,6 +6,7 @@ import { formatDate } from "@/utils/date";
 import MealList from "@/custom/MealList";
 import { Button } from "@/components/ui/button";
 import { Plus, Search } from "lucide-react";
+import AddMealForm from "./addMealForm";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -55,6 +56,7 @@ export default async function DashboardPage() {
         </div>
       </div>
       <div>
+        <AddMealForm />
         <div className="mb-4 text-center">Today</div>
         <MealList meals={todaysMeals} />
       </div>
