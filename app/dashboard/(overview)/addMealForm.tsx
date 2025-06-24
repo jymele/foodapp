@@ -14,20 +14,20 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import SubmitButton from "@/custom/SubmitButton";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { format } from "date-fns";
+import { format, set } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const formSchema = z.object({
-  mealName: z.string().min(3, "Meal name is required"),
+  mealName: z.string().min(3, "You must add a meal to save it"),
   userEmail: z.string().email("Did not recognize your email address"),
   mealDate: z.date({ required_error: "Please select a date" }),
 });
@@ -37,6 +37,8 @@ type formProps = {
 };
 
 export default function AddMealForm({ email }: formProps) {
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,6 +50,7 @@ export default function AddMealForm({ email }: formProps) {
   });
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
+    setLoading(true);
     const response = await fetch("/api/meal/add", {
       method: "POST",
       headers: {
@@ -68,11 +71,12 @@ export default function AddMealForm({ email }: formProps) {
       const errorData = await response.json();
       console.error("Error adding meal:", errorData.message);
     }
+    setLoading(false);
   }
 
   return (
     <div>
-      <h2>Meal Form</h2>
+      <h2>Add a meal</h2>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
           <FormField
@@ -153,9 +157,14 @@ export default function AddMealForm({ email }: formProps) {
             )}
           />
 
-          <SubmitButton classes="">
+          <Button
+            disabled={loading}
+            aria-disabled={loading}
+            type="submit"
+            className="disabled:opacity-80 disabled:pointer-events-none"
+          >
             <div>Send</div>
-          </SubmitButton>
+          </Button>
         </form>
       </Form>
     </div>
