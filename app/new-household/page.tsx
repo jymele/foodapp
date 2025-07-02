@@ -6,6 +6,7 @@ import Link from "next/link";
 import SubmitButton from "@/custom/SubmitButton";
 import { Plus } from "lucide-react";
 import InvitationList from "./invitation-list";
+import { Input } from "@/components/ui/input";
 
 export default async function NewRoom() {
   const session = await auth();
@@ -48,7 +49,7 @@ export default async function NewRoom() {
         action={createRoom}
         className="transition duration-200 bg-white px-3.5 py-2.5 w-fit rounded-md shadow-sm flex"
       >
-        <input type="text" name="household-name" placeholder="Household Name" />
+        <Input type="text" name="household-name" placeholder="Household Name" />
         <input
           type="hidden"
           name="user-email"
@@ -58,7 +59,7 @@ export default async function NewRoom() {
           required
         />
         <SubmitButton>
-          <Plus className="text-slate-700" />
+          <Plus />
         </SubmitButton>
       </Form>
 

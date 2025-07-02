@@ -24,6 +24,15 @@ type Props = {
 };
 
 export default function InvitationList({ invitations }: Props) {
+  if (!invitations || invitations.length === 0) {
+    return (
+      <div className="w-full mt-8">
+        {/* <h2 className="mb-4 mt-8 font-semibold text-center">Invitations</h2> */}
+        <p className="text-center text-gray-500">No invitations found.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full mt-8">
       <h2 className="mb-4 mt-8 font-semibold text-center">Invitations</h2>

@@ -1,6 +1,6 @@
 "use server";
 import { auth } from "@/auth";
-import { PrismaClient } from "@/generated/prisma";
+import { Meal, PrismaClient } from "@/generated/prisma";
 import Navigation from "@/custom/Navigation";
 import Link from "next/link";
 import { formatDate } from "@/utils/date";
@@ -8,6 +8,7 @@ import MealList from "@/custom/MealList";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 import AddMealForm from "./addMealForm";
+import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -25,7 +26,11 @@ export default async function DashboardPage() {
   // Convert the date to the same timezone as the database date
   const today = formatDate(date);
 
-  const todaysMeals = await prisma.meal.findMany({
+  if (!household) {
+    redirect("/new-household");
+  }
+
+  const todaysMeals: Meal[] = await prisma.meal.findMany({
     where: { household_id: household!.id, date: date },
   });
 
@@ -52,7 +57,7 @@ export default async function DashboardPage() {
         </div>
       </div>
       <div>
-        <AddMealForm email={session?.user!.email!} />
+        <AddMealForm email={session?.user?.email || "unknown"} />
         <div className="mb-4 text-center">Today</div>
         <MealList meals={todaysMeals} />
       </div>
