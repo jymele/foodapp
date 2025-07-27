@@ -12,7 +12,8 @@ export default function SignIn() {
     <Button
       aria-disabled={loading}
       disabled={loading}
-      className="rounded-full w-full max-w-xs h-12 disabled:cursor-not-allowed hover:opacity-90 primary"
+      variant={"tonal"}
+      size={"lg"}
       onClick={() => {
         setLoading(true);
         signIn("google", { callbackUrl: "/dashboard" });
