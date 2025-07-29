@@ -2,7 +2,7 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Plus } from "lucide-react";
 
 import {
   Form,
@@ -29,7 +29,7 @@ import { useState } from "react";
 const formSchema = z.object({
   mealName: z.string().min(3, "You must add a meal to save it"),
   userEmail: z.string().email("Did not recognize your email address"),
-  mealDate: z.date({ required_error: "Please select a date" }),
+  mealDate: z.string(),
 });
 
 type formProps = {
@@ -44,7 +44,7 @@ export default function AddMealForm({ email }: formProps) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       mealName: "",
-      mealDate: new Date(), // Default to today's date
+      mealDate: new Date().toISOString(), // Default to today's date
       userEmail: email,
     },
   });
@@ -59,7 +59,7 @@ export default function AddMealForm({ email }: formProps) {
       body: JSON.stringify({
         mealName: data.mealName,
         userEmail: data.userEmail,
-        mealDate: data.mealDate.toISOString(),
+        mealDate: data.mealDate,
       }),
     });
 
@@ -78,23 +78,25 @@ export default function AddMealForm({ email }: formProps) {
     <div>
       <h2>Add a meal</h2>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-2 border border-primary/15 p-2 rounded-lg bg-background mb-4"
+        >
           <FormField
             control={form.control}
             name="mealName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Meal Name</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Plantains"
-                    className="bg-white"
+                    placeholder="Add the meal you will eat"
                     {...field}
+                    className="border-none ring-0 shadow-none px-2 focus-visible:ring-0"
                   />
                 </FormControl>
-                <FormDescription>
+                {/* <FormDescription>
                   The name of the meal you will eat
-                </FormDescription>
+                </FormDescription> */}
                 <FormMessage />
               </FormItem>
             )}
@@ -116,55 +118,34 @@ export default function AddMealForm({ email }: formProps) {
             control={form.control}
             name="mealDate"
             render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Set a date</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant={"outline"}
-                        className={cn(
-                          "w-[240px] pl-3 text-left font-normal",
-                          !field.value && "text-muted-foreground"
-                        )}
-                      >
-                        {field.value ? (
-                          format(field.value, "PPP")
-                        ) : (
-                          <span>Pick a date</span>
-                        )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={field.value}
-                      onSelect={field.onChange}
-                      disabled={(date) =>
-                        date > new Date() || date < new Date("1900-01-01")
-                      }
-                      captionLayout="dropdown"
-                    />
-                  </PopoverContent>
-                </Popover>
-                <FormDescription>
-                  Your date of birth is used to calculate your age.
-                </FormDescription>
-                <FormMessage />
+              <FormItem>
+                <FormControl>
+                  <Input type="hidden" {...field} />
+                </FormControl>
               </FormItem>
             )}
           />
 
-          <Button
-            disabled={loading}
-            aria-disabled={loading}
-            type="submit"
-            className="disabled:opacity-80 disabled:pointer-events-none"
-          >
-            <div>Send</div>
-          </Button>
+          <div className="flex justify-between items-center flex-row-reverse">
+            <Button
+              disabled={loading}
+              aria-disabled={loading}
+              variant={"ghost"}
+              size={"icon"}
+            >
+              <CalendarIcon />
+            </Button>
+
+            <Button
+              disabled={loading}
+              aria-disabled={loading}
+              type="submit"
+              variant={"ghost"}
+              size={"icon"}
+            >
+              <Plus />
+            </Button>
+          </div>
         </form>
       </Form>
     </div>
