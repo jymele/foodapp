@@ -23,7 +23,6 @@ type DashboardClientProps = {
 export default function DashboardClient({
   initialMeals,
   householdId,
-  userEmail,
 }: DashboardClientProps) {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [meals, setMeals] = useState<Meal[]>(initialMeals);
