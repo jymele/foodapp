@@ -4,14 +4,18 @@ import { Meal, PrismaClient } from "@/generated/prisma";
 import Navigation from "@/custom/Navigation";
 import Link from "next/link";
 import { formatDate } from "@/utils/date";
-import MealList from "@/custom/MealList";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 import AddMealForm from "./addMealForm";
+import DashboardClient from "./dashboard-client";
 import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
   const session = await auth();
+
+  if (!session || !session.user) {
+    redirect("/");
+  }
 
   const prisma = new PrismaClient();
   const userHousehold = await prisma.userHousehold.findFirst({
@@ -58,8 +62,11 @@ export default async function DashboardPage() {
       </div>
       <div>
         <AddMealForm email={session?.user?.email || "unknown"} />
-        <div className="mb-4 text-center">Today</div>
-        <MealList meals={todaysMeals} />
+        <DashboardClient
+          initialMeals={todaysMeals}
+          householdId={household.id}
+          userEmail={session?.user?.email || "unknown"}
+        />
       </div>
     </div>
   );

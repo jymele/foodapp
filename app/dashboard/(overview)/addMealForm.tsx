@@ -127,14 +127,44 @@ export default function AddMealForm({ email }: formProps) {
           />
 
           <div className="flex justify-between items-center flex-row-reverse">
-            <Button
-              disabled={loading}
-              aria-disabled={loading}
-              variant={"ghost"}
-              size={"icon"}
-            >
-              <CalendarIcon />
-            </Button>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  disabled={loading}
+                  aria-disabled={loading}
+                  variant={"ghost"}
+                  size={"sm"}
+                  className={cn(
+                    "justify-start text-left font-normal px-3",
+                    !form.watch("mealDate") && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon className="h-4 w-4 mr-2" />
+                  {form.watch("mealDate")
+                    ? format(new Date(form.watch("mealDate")), "MMM d, yyyy")
+                    : "Pick date"}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="end">
+                <Calendar
+                  mode="single"
+                  selected={
+                    form.watch("mealDate")
+                      ? new Date(form.watch("mealDate"))
+                      : undefined
+                  }
+                  onSelect={(date) => {
+                    if (date) {
+                      form.setValue("mealDate", date.toISOString());
+                    }
+                  }}
+                  disabled={(date) =>
+                    date < new Date(new Date().setHours(0, 0, 0, 0))
+                  }
+                  initialFocus
+                />
+              </PopoverContent>
+            </Popover>
 
             <Button
               disabled={loading}
