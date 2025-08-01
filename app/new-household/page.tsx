@@ -43,27 +43,50 @@ export default async function NewRoom() {
   });
 
   return (
-    <div className="container mx-auto h-dvh flex flex-col items-center justify-center p-2">
-      <h1 className="font-semibold mb-2 text-lg">Create a Household</h1>
-      <Form
-        action={createRoom}
-        className="transition duration-200 bg-white px-3.5 py-2.5 w-fit rounded-md shadow-sm flex"
-      >
-        <Input type="text" name="household-name" placeholder="Household Name" />
-        <input
-          type="hidden"
-          name="user-email"
-          value={session!.user!.email as string}
-          className=""
-          aria-required
-          required
-        />
-        <SubmitButton>
-          <Plus />
-        </SubmitButton>
-      </Form>
+    <div className="container mx-auto min-h-dvh flex flex-col items-center justify-center p-6">
+      <div className="w-full max-w-2xl space-y-8">
+        {/* Header */}
+        <div className="text-center space-y-2">
+          <h1 className="text-3xl font-medium text-foreground mb-2">
+            Create your household
+          </h1>
+          <p className="text-muted-foreground text-lg">
+            Give your household a name to get started
+          </p>
+        </div>
 
-      <InvitationList invitations={invitations} />
+        {/* Gemini-style Input */}
+        <div className="relative">
+          <Form action={createRoom} className="w-full">
+            <div className="relative flex items-center bg-background border border-border rounded-3xl shadow-lg hover:shadow-xl transition-all duration-200 focus-within:shadow-xl focus-within:border-ring">
+              <Input
+                type="text"
+                name="household-name"
+                placeholder="Enter household name..."
+                className="flex-1 border-0 bg-transparent text-lg px-6 py-4 rounded-3xl shadow-none focus-visible:ring-0 focus-visible:border-transparent placeholder:text-muted-foreground"
+                autoFocus
+              />
+              <input
+                type="hidden"
+                name="user-email"
+                value={session!.user!.email as string}
+                aria-required
+                required
+              />
+              <div className="pr-2">
+                <SubmitButton classes="h-12 w-12 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:shadow-lg transition-all duration-200 border-0">
+                  <Plus className="h-5 w-5" />
+                </SubmitButton>
+              </div>
+            </div>
+          </Form>
+        </div>
+
+        {/* Invitations */}
+        <div className="mt-12">
+          <InvitationList invitations={invitations} />
+        </div>
+      </div>
     </div>
   );
 }

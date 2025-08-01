@@ -25,18 +25,25 @@ type Props = {
 
 export default function InvitationList({ invitations }: Props) {
   if (!invitations || invitations.length === 0) {
-    return (
-      <div className="w-full mt-8">
-        {/* <h2 className="mb-4 mt-8 font-semibold text-center">Invitations</h2> */}
-        <p className="text-center text-gray-500">No invitations found.</p>
-      </div>
-    );
+    return null; // Don't show anything if no invitations
   }
 
   return (
-    <div className="w-full mt-8">
-      <h2 className="mb-4 mt-8 font-semibold text-center">Invitations</h2>
-      <motion.div variants={containerVariants} initial="hidden" animate="show">
+    <div className="w-full">
+      <div className="text-center mb-6">
+        <h2 className="text-xl font-medium text-foreground mb-2">
+          Pending Invitations
+        </h2>
+        <p className="text-muted-foreground">
+          You have been invited to join these households
+        </p>
+      </div>
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+        className="space-y-3"
+      >
         {invitations.map((invitation) => (
           <motion.div key={invitation.id} variants={cardVariants}>
             <InvitationCard invitation={invitation} />
